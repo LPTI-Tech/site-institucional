@@ -959,12 +959,17 @@ ul {
 }
 
 .product-logo-container {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .product-logo-img {
-  height: 54px;
+  height: 60px;
+  max-width: 100%;
   width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .product-title {
@@ -1366,6 +1371,39 @@ ul {
   margin-bottom: 10px;
 }
 
+.footer-contact-summary {
+  margin: 14px 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #CFD8DC;
+  margin: 0;
+}
+
+.footer-summary-item a {
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.footer-summary-item a:hover {
+  color: #64B5F6;
+}
+
+.footer-summary-note {
+  font-size: 13px;
+  color: #81C784;
+  font-weight: 600;
+  margin: 4px 0 0 0;
+}
+
 .footer-about-brief {
   font-size: 13px;
   color: #94A3B8;
@@ -1536,3 +1574,157 @@ ul {
   .product-title { font-size: 26px; }
   .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
 }
+
+/* ================= CONVERSÃO NA HERO SECTION ================= */
+.hero-direct-contact {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(25, 118, 210, 0.25);
+  border-radius: var(--radius-pill);
+  padding: 10px 24px;
+  margin-top: 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 16px rgba(13, 71, 161, 0.08);
+}
+
+.hero-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-dark);
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: none;
+  transition: color var(--transition), transform var(--transition);
+}
+
+.hero-contact-item:hover {
+  color: var(--blue-primary);
+  transform: translateY(-1px);
+}
+
+.hero-contact-icon {
+  font-size: 16px;
+}
+
+.hero-contact-divider {
+  color: var(--gray-light);
+  font-weight: 700;
+  user-select: none;
+}
+
+@media (max-width: 600px) {
+  .hero-direct-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-md);
+    gap: 10px;
+    padding: 14px 18px;
+    width: 100%;
+  }
+  .hero-contact-divider {
+    display: none;
+  }
+}
+
+/* ================= PÁGINAS LEGAIS / INSTITUCIONAIS ================= */
+.legal-header {
+  padding: 140px 0 60px 0;
+  background: linear-gradient(135deg, #0A1C33 0%, #0D2D54 50%, #0D47A1 100%);
+  color: var(--white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-title {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.legal-subtitle {
+  font-size: 16px;
+  color: #B0BEC5;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.legal-body {
+  padding: 70px 0 100px 0;
+  background-color: var(--gray-bg);
+}
+
+.legal-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 50px 48px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-border);
+  max-width: 880px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #37474F;
+}
+
+.legal-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-top: 36px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.legal-card h2:first-child {
+  margin-top: 0;
+}
+
+.legal-card p {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.legal-card ul {
+  margin: 12px 0 20px 24px;
+}
+
+.legal-card li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.legal-card strong {
+  color: var(--navy-dark);
+}
+
+.legal-card a {
+  color: var(--blue-primary);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.legal-card a:hover {
+  color: var(--navy-dark);
+}
+
+.legal-info-box {
+  background: #EBF3FC;
+  border-left: 4px solid var(--blue-primary);
+  padding: 16px 20px;
+  border-radius: 6px;
+  margin: 24px 0;
+  font-size: 14.5px;
+}
+
+@media (max-width: 768px) {
+  .legal-title { font-size: 30px; }
+  .legal-card { padding: 32px 20px; }
+}
+
