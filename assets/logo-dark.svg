@@ -1,0 +1,74 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+      .b2b-title-dark { font-family: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, sans-serif; font-size: 68px; font-weight: 800; letter-spacing: -1.2px; fill: #FFFFFF; }
+      .b2b-tech-dark { font-family: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, sans-serif; font-size: 68px; font-weight: 600; letter-spacing: -0.5px; fill: #42A5F5; }
+      .b2b-slogan-dark { font-family: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, sans-serif; font-size: 17.5px; font-weight: 600; letter-spacing: 0.6px; fill: #CFD8DC; }
+    </style>
+    <linearGradient id="hdChipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2196F3"/>
+      <stop offset="60%" stop-color="#1976D2"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+    <linearGradient id="hdCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1565C0"/>
+      <stop offset="100%" stop-color="#0B2347"/>
+    </linearGradient>
+    <linearGradient id="hdGreenArc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#43A047"/>
+    </linearGradient>
+    <linearGradient id="hdBlueArc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#42A5F5"/>
+      <stop offset="50%" stop-color="#1E88E5"/>
+      <stop offset="100%" stop-color="#1565C0"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 16) scale(0.6166)">
+    <path d="M 120 24 A 96 96 0 0 1 216 120" fill="none" stroke="url(#hdGreenArc)" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="216" cy="120" r="8" fill="#4CAF50"/>
+    <circle cx="120" cy="24" r="6" fill="#66BB6A"/>
+
+    <path d="M 120 216 A 96 96 0 0 1 24 120" fill="none" stroke="url(#hdBlueArc)" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="120" cy="216" r="8" fill="#2196F3"/>
+    <circle cx="24" cy="120" r="6" fill="#42A5F5"/>
+
+    <path d="M 68 70 A 72 72 0 0 1 120 48" fill="none" stroke="#29B6F6" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="68" cy="70" r="4.5" fill="#29B6F6"/>
+
+    <path d="M 172 170 A 72 72 0 0 1 120 192" fill="none" stroke="#1E88E5" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="172" cy="170" r="4.5" fill="#1E88E5"/>
+
+    <path d="M 192 120 A 72 72 0 0 0 170 68" fill="none" stroke="#66BB6A" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 48 120 A 72 72 0 0 0 70 172" fill="none" stroke="#29B6F6" stroke-width="5" stroke-linecap="round"/>
+
+    <rect x="88" y="88" width="64" height="64" rx="13" ry="13" fill="url(#hdChipGrad)" stroke="#64B5F6" stroke-width="1" stroke-opacity="0.4"/>
+    <rect x="100" y="100" width="40" height="40" rx="8" ry="8" fill="url(#hdCoreGrad)" stroke="#90CAF9" stroke-width="1.2" stroke-opacity="0.8"/>
+    <rect x="109" y="109" width="22" height="22" rx="4" ry="4" fill="#0D47A1" stroke="#E3F2FD" stroke-width="1" stroke-opacity="0.9"/>
+    <circle cx="120" cy="120" r="3.2" fill="#00E5FF"/>
+
+    <rect x="102" y="74" width="5.5" height="14" rx="2.75" fill="#42A5F5"/>
+    <rect x="117.25" y="72" width="5.5" height="16" rx="2.75" fill="#42A5F5"/>
+    <rect x="132.5" y="74" width="5.5" height="14" rx="2.75" fill="#42A5F5"/>
+
+    <rect x="102" y="152" width="5.5" height="14" rx="2.75" fill="#1E88E5"/>
+    <rect x="117.25" y="152" width="5.5" height="16" rx="2.75" fill="#1E88E5"/>
+    <rect x="132.5" y="152" width="5.5" height="14" rx="2.75" fill="#1E88E5"/>
+
+    <rect x="74" y="102" width="14" height="5.5" rx="2.75" fill="#42A5F5"/>
+    <rect x="72" y="117.25" width="16" height="5.5" rx="2.75" fill="#42A5F5"/>
+    <rect x="74" y="132.5" width="14" height="5.5" rx="2.75" fill="#42A5F5"/>
+
+    <rect x="152" y="102" width="14" height="5.5" rx="2.75" fill="#29B6F6"/>
+    <rect x="152" y="117.25" width="16" height="5.5" rx="2.75" fill="#29B6F6"/>
+    <rect x="152" y="132.5" width="14" height="5.5" rx="2.75" fill="#29B6F6"/>
+  </g>
+
+  <text x="164" y="100">
+    <tspan class="b2b-title-dark">LPTI</tspan>
+    <tspan dx="8" class="b2b-tech-dark">tech</tspan>
+  </text>
+  <text x="166" y="141" class="b2b-slogan-dark">Transformando Tecnologia em Resultados</text>
+</svg>
