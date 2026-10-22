@@ -1728,3 +1728,378 @@ ul {
   .legal-card { padding: 32px 20px; }
 }
 
+/* ================= ATUALIZAÇÃO V1.2: REFINAMENTOS VISUAIS ================= */
+
+/* Hero Checklist Refinado (Item 1) */
+.hero-highlights-v12 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 16px;
+  border-top: 1px solid var(--gray-border);
+  padding-top: 24px;
+}
+
+.hero-highlight-v12-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.check-icon-v12 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: rgba(67, 160, 71, 0.12);
+  color: var(--accent-green);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .hero-highlights-v12 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* Bloco Rápido WhatsApp (Item 2) */
+.whatsapp-quick-callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #E8F5E9;
+  border: 1px solid rgba(67, 160, 71, 0.35);
+  border-radius: var(--radius-pill);
+  padding: 6px 16px 6px 14px;
+  margin-top: 10px;
+  margin-bottom: 24px;
+}
+
+.whatsapp-quick-callout .callout-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1B5E20;
+}
+
+.btn-whatsapp-badge {
+  background: #25D366;
+  color: #FFFFFF !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+  transition: all var(--transition);
+}
+
+.btn-whatsapp-badge:hover {
+  background: #1EBE5D;
+  transform: translateY(-1px);
+}
+
+/* Botões Oficiais WhatsApp */
+.btn-whatsapp {
+  background: #25D366;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  border: none;
+  transition: all var(--transition);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.28);
+}
+
+.btn-whatsapp:hover {
+  background: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.38);
+}
+
+.btn-whatsapp-sm {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: var(--radius-pill);
+  background: #25D366;
+  color: #FFFFFF !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.btn-whatsapp-sm:hover {
+  background: #1EBE5D;
+  transform: translateY(-1px);
+}
+
+/* Destaques Visuais do Gestor MEI (Item 3) */
+.product-badge-proprietary {
+  background: linear-gradient(135deg, rgba(67, 160, 71, 0.22) 0%, rgba(25, 118, 210, 0.22) 100%);
+  border: 1px solid rgba(129, 199, 132, 0.5);
+  color: #A5D6A7;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.gestor-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 22px 0 28px 0;
+}
+
+.gestor-highlight-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(4px);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.gestor-highlight-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(67, 160, 71, 0.6);
+  transform: translateY(-2px);
+}
+
+.gestor-check-icon {
+  color: #66BB6A;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .gestor-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Seção Nossos Projetos (Item 5) */
+.projects-section {
+  padding: 85px 0 95px 0;
+  background-color: var(--white);
+}
+
+.project-showcase-card {
+  background: linear-gradient(135deg, #0A1C33 0%, #0D2D54 50%, #071526 100%);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 48px;
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-evolving {
+  background: linear-gradient(135deg, #1565C0 0%, #2E7D32 100%);
+  color: #E8F5E9;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge-evolving .dot-pulse {
+  width: 7px;
+  height: 7px;
+  background-color: #69F0AE;
+  border-radius: 50%;
+  animation: pulse 1.8s infinite;
+}
+
+.project-info-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 14px 0 10px 0;
+}
+
+.project-info-desc {
+  font-size: 16px;
+  color: #CFD8DC;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.project-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.project-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  color: #ECEFF1;
+}
+
+.project-feature-item .feat-icon {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.project-visual-preview {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 30px 26px;
+  text-align: center;
+}
+
+.project-visual-preview img {
+  max-width: 240px;
+  height: auto;
+  margin: 0 auto 20px auto;
+  display: block;
+}
+
+.project-status-note {
+  font-size: 13.5px;
+  color: #90CAF9;
+  background: rgba(13, 71, 161, 0.35);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(144, 202, 249, 0.2);
+}
+
+@media (max-width: 900px) {
+  .project-showcase-card {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+}
+
+/* Seção Por Que Escolher (Item 4) */
+.why-choose-section {
+  padding: 90px 0;
+  background-color: var(--gray-bg);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.why-card {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 26px;
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.why-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--blue-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.why-icon-wrapper {
+  font-size: 36px;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.why-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 12px;
+}
+
+.why-desc {
+  font-size: 14.5px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bloco de Contato WhatsApp Refinado (Item 6) */
+.contact-whatsapp-block {
+  margin-top: 14px;
+  background: #E8F5E9;
+  border: 1px solid rgba(67, 160, 71, 0.35);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.whatsapp-prompt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1B5E20;
+}
+
+@media (max-width: 600px) {
+  .contact-whatsapp-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
