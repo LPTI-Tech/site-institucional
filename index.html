@@ -754,7 +754,14 @@
 
           <!-- Coluna Formulário de Contato -->
           <div class="contact-form-col">
-            <form id="contact-form" class="corporate-form" onsubmit="handleFormSubmit(event)">
+            <form id="contact-form" class="corporate-form" action="https://formsubmit.co/contato@lptitech.com.br" method="POST" onsubmit="handleFormSubmit(event)">
+              <!-- Configurações FormSubmit para Entrega Real de E-mails via Cloudflare Email Routing -->
+              <input type="hidden" name="_subject" value="[LPTI Tech] Nova Mensagem do Site Institucional">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_autoresponse" value="Olá! Confirmamos o recebimento da sua mensagem na LPTI Tech. Nossa equipe entrará em contato em breve pelo telefone/WhatsApp ou e-mail informado. Atenciosamente, LPTI Tech.">
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
               <h3 class="form-title">Envie uma Mensagem</h3>
               <p class="form-desc">Preencha o formulário e responderemos em até 2 horas comerciais.</p>
 

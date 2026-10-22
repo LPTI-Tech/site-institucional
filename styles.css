@@ -1343,6 +1343,12 @@ ul {
   border: 1px solid #A5D6A7;
 }
 
+.form-feedback.error {
+  background-color: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
 /* ================= SEÇÃO 7: RODAPÉ ================= */
 .footer {
   background-color: var(--navy-darker);

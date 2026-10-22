@@ -58,10 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', updateScrollSpy);
 
-  // 4. Tratamento do Formulário de Contato
-  window.handleFormSubmit = function(e) {
+  // 4. Tratamento do Formulário de Contato com Envio Real para contato@lptitech.com.br
+  window.handleFormSubmit = async function(e) {
     e.preventDefault();
 
+    const form = document.getElementById('contact-form');
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -71,25 +72,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submit-btn');
     const feedbackBox = document.getElementById('form-feedback');
 
-    // Desabilitar botão durante envio
+    // Desabilitar botão e exibir estado de carregamento
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Enviando solicitação...</span>';
+    submitBtn.innerHTML = '<span>Enviando mensagem...</span>';
+    feedbackBox.style.display = 'none';
 
-    setTimeout(() => {
-      feedbackBox.className = 'form-feedback success';
+    try {
+      const payload = {
+        name: name,
+        email: email,
+        phone: phone,
+        company: company || 'Não informado',
+        service: service,
+        message: message,
+        _subject: `[LPTI Tech] Solicitação de Contato: ${name} (${service})`,
+        _template: 'table',
+        _captcha: 'false'
+      };
+
+      const response = await fetch('https://formsubmit.co/ajax/contato@lptitech.com.br', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (response.ok || (result && (result.success === 'true' || result.success === true))) {
+        feedbackBox.className = 'form-feedback success';
+        feedbackBox.style.display = 'block';
+        feedbackBox.innerHTML = `
+          <strong>Mensagem enviada com sucesso!</strong><br>
+          Olá, <strong>${name}</strong>! Sua solicitação referente a <em>${service}</em> foi transmitida diretamente para nossa equipe (<code>contato@lptitech.com.br</code>).
+          Retornaremos em seu e-mail <strong>${email}</strong> ou telefone/WhatsApp <strong>${phone}</strong> em até 2 horas comerciais.
+          <br><br>
+          <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Meu%20nome%20%C3%A9%20${encodeURIComponent(name)}%2C%20da%20empresa%20${encodeURIComponent(company || 'Minha Empresa')}.%20Acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o%20pelo%20site%20sobre%20${encodeURIComponent(service)}." target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" style="display: inline-block; margin-top: 8px;">
+            💬 Prefere atendimento imediato? Fale agora no WhatsApp &rarr;
+          </a>
+        `;
+
+        submitBtn.innerHTML = '<span>Solicitação Enviada ✓</span>';
+        form.reset();
+      } else {
+        throw new Error(result.message || 'Resposta inesperada do endpoint de envio');
+      }
+    } catch (err) {
+      console.warn('Envio via AJAX encontrou restrição de rede/CORS, submetendo via POST nativo:', err);
+      // Fallback 1: se for bloqueio de CORS/Adblock no fetch, submete o formulário via POST nativo
+      if (form) {
+        submitBtn.innerHTML = '<span>Transmitindo dados...</span>';
+        form.submit();
+        return;
+      }
+
+      // Fallback 2: exibe opções alternativas de contato
+      feedbackBox.className = 'form-feedback error';
       feedbackBox.style.display = 'block';
       feedbackBox.innerHTML = `
-        <strong>Obrigado, ${name}!</strong><br>
-        Sua mensagem sobre <em>${service}</em> foi recebida com sucesso.
-        Nossos consultores entrarão em contato pelo telefone/WhatsApp <strong>${phone}</strong> ou e-mail <strong>${email}</strong> em até 2 horas úteis.
+        <strong>Não foi possível enviar automaticamente.</strong><br>
+        Envie sua mensagem diretamente para nosso e-mail oficial: <a href="mailto:contato@lptitech.com.br" style="color: #1976D2; font-weight: 600;">contato@lptitech.com.br</a> ou chame nossa equipe no WhatsApp:
         <br><br>
-        <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Meu%20nome%20%C3%A9%20${encodeURIComponent(name)}%2C%20da%20empresa%20${encodeURIComponent(company || 'Minha Empresa')}.%20Acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o%20pelo%20site%20sobre%20${encodeURIComponent(service)}." target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" style="display: inline-block; margin-top: 8px;">
-          Falar agora mesmo no WhatsApp &rarr;
+        <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20proposta%20sobre%20${encodeURIComponent(service)}." target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm" style="display: inline-block; margin-top: 8px;">
+          💬 Chamar no WhatsApp (31) 98800-4560 &rarr;
         </a>
       `;
-
-      submitBtn.innerHTML = '<span>Solicitação Enviada ✓</span>';
-      document.getElementById('contact-form').reset();
-    }, 800);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>Tentar Novamente</span>';
+    }
   };
 });
