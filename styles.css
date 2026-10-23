@@ -443,7 +443,7 @@ ul {
 .hero-cta-group {
   display: flex;
   gap: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 
@@ -880,36 +880,129 @@ ul {
   transform: translateX(4px);
 }
 
-/* Card CTA de Contato dentro da Grade */
-.cta-card-box {
-  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--primary-dark) 100%);
-  color: var(--white);
-  border: none;
-  justify-content: center;
+/* ================= SEÇÃO CTA HORIZONTAL DE SERVIÇOS (AJUSTE 2) ================= */
+.services-cta-banner {
+  position: relative;
+  margin-top: 50px;
+  background: linear-gradient(135deg, #0A192F 0%, #0D2D54 50%, #0D47A1 100%);
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  border-radius: var(--radius-xl);
+  padding: 56px 48px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(10, 25, 47, 0.16);
+  width: 100%;
+}
+
+.services-cta-glow {
+  position: absolute;
+  top: -60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(25, 118, 210, 0.32) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.services-cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.cta-mini-tag {
+.services-cta-badge {
+  display: inline-block;
+  background: rgba(67, 160, 71, 0.16);
+  border: 1px solid rgba(67, 160, 71, 0.45);
+  color: #81C784;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: #81C784;
-  margin-bottom: 12px;
-  display: block;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
 }
 
-.cta-card-box h3 {
-  font-size: 20px;
+.services-cta-title {
+  font-size: 32px;
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 12px;
-  line-height: 1.3;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
 }
 
-.cta-card-box p {
-  font-size: 13.5px;
+.services-cta-desc {
+  font-size: 16.5px;
   color: #CFD8DC;
-  margin-bottom: 24px;
+  line-height: 1.65;
+  margin-bottom: 32px;
+  max-width: 740px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.services-cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-whatsapp-corporate {
+  background-color: #25D366;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-md);
+  padding: 14px 28px;
+  font-size: 15px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-whatsapp-corporate:hover {
+  background-color: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+  color: #FFFFFF !important;
+}
+
+@media (max-width: 768px) {
+  .services-cta-banner {
+    padding: 38px 20px;
+    margin-top: 36px;
+  }
+  .services-cta-title {
+    font-size: 23px;
+    line-height: 1.3;
+  }
+  .services-cta-desc {
+    font-size: 14.5px;
+    margin-bottom: 24px;
+  }
+  .services-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .services-cta-buttons .btn,
+  .services-cta-buttons .btn-whatsapp-corporate {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Card CTA legado (fallback) */
+.cta-card-box {
+  display: none;
 }
 
 /* ================= SEÇÃO 4: GESTOR MEI ================= */
@@ -1584,60 +1677,9 @@ ul {
   .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
 }
 
-/* ================= CONVERSÃO NA HERO SECTION ================= */
+/* ================= CONVERSÃO NA HERO SECTION (REMOVIDO / LIMPO) ================= */
 .hero-direct-contact {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(25, 118, 210, 0.25);
-  border-radius: var(--radius-pill);
-  padding: 10px 24px;
-  margin-top: 20px;
-  margin-bottom: 28px;
-  box-shadow: 0 4px 16px rgba(13, 71, 161, 0.08);
-}
-
-.hero-contact-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--gray-dark);
-  font-weight: 600;
-  font-size: 14.5px;
-  text-decoration: none;
-  transition: color var(--transition), transform var(--transition);
-}
-
-.hero-contact-item:hover {
-  color: var(--blue-primary);
-  transform: translateY(-1px);
-}
-
-.hero-contact-icon {
-  font-size: 16px;
-}
-
-.hero-contact-divider {
-  color: var(--gray-light);
-  font-weight: 700;
-  user-select: none;
-}
-
-@media (max-width: 600px) {
-  .hero-direct-contact {
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: var(--radius-md);
-    gap: 10px;
-    padding: 14px 18px;
-    width: 100%;
-  }
-  .hero-contact-divider {
-    display: none;
-  }
+  display: none;
 }
 
 /* ================= PÁGINAS LEGAIS / INSTITUCIONAIS ================= */
