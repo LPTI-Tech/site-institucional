@@ -324,7 +324,7 @@ button {
   gap: 12px;
   text-decoration: none;
   flex-shrink: 0;
-  margin-right: 48px; /* Respiro horizontal solicitado de 48px */
+  margin-right: 36px; /* Respiro balanceado para acomodar os 8 itens em linha unica */
 }
 
 .brand-icon {
@@ -366,14 +366,14 @@ button {
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   white-space: nowrap;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--slate);
   padding: 6px 0;
@@ -1404,6 +1404,221 @@ button {
   color: var(--light-slate);
 }
 
+/* ================= SEÇÃO COMERCIAL: PLANOS TRANSPARENTES ================= */
+.pricing-section {
+  background-color: #F8FAFD;
+  position: relative;
+  border-top: 1px solid var(--gray-border);
+  border-bottom: 1px solid var(--gray-border);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 980px;
+  margin: 48px auto 36px;
+  align-items: stretch;
+}
+
+.pricing-card {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-xl);
+  padding: 42px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pricing-card.pricing-featured {
+  border: 2px solid var(--primary);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F9FF 100%);
+  box-shadow: 0 16px 40px rgba(11, 79, 140, 0.12);
+}
+
+.pricing-badge-popular {
+  position: absolute;
+  top: -14px;
+  right: 32px;
+  background: var(--accent-green);
+  color: #FFFFFF;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+}
+
+.plan-type {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.plan-name {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--navy-darker);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.plan-subtitle {
+  font-size: 14.5px;
+  color: var(--slate);
+  line-height: 1.5;
+  min-height: 44px;
+  margin-bottom: 22px;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--gray-border);
+  margin-bottom: 24px;
+}
+
+.price-currency {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy-dark);
+}
+
+.price-val {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--navy-darker);
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+
+.price-period {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--light-slate);
+}
+
+.pricing-features {
+  flex-grow: 1;
+  margin-bottom: 32px;
+}
+
+.pricing-feature-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--navy-dark);
+  margin-bottom: 14px;
+}
+
+.pricing-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.45;
+}
+
+.p-check {
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: -1px;
+}
+
+.p-check.highlight {
+  color: var(--accent-green);
+}
+
+.btn-outline {
+  border: 2px solid var(--navy-dark);
+  color: var(--navy-dark);
+  background: transparent;
+  font-weight: 800;
+}
+
+.btn-outline:hover {
+  background: var(--navy-dark);
+  color: var(--white);
+}
+
+/* Faixa de Implantação e Piloto */
+.pricing-pilot-banner {
+  max-width: 980px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #0A1C33 0%, #0F325E 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
+  padding: 26px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.pilot-icon {
+  font-size: 38px;
+  flex-shrink: 0;
+}
+
+.pilot-content {
+  flex-grow: 1;
+}
+
+.pilot-content h4 {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.pilot-content p {
+  font-size: 14.5px;
+  color: #CFD8DC;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.pilot-highlight {
+  color: #69F0AE;
+  font-weight: 900;
+}
+
+.pilot-action {
+  flex-shrink: 0;
+}
+
 /* ================= ATO 8: FECHAMENTO DE ALTA CONVERSÃO & FORM ================= */
 .conversion-section {
   background: linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-darker) 60%, #0D2D54 100%);
@@ -1694,17 +1909,17 @@ button {
 /* ================= RESPONSIVIDADE ================= */
 @media (max-width: 1280px) and (min-width: 901px) {
   .brand-wrapper {
-    margin-right: 28px;
+    margin-right: 18px;
   }
   .nav-list {
-    gap: 14px;
+    gap: 11px;
   }
   .nav-link {
-    font-size: 13.5px;
+    font-size: 13px;
   }
   .nav-cta {
-    padding: 8px 16px;
-    font-size: 13px;
+    padding: 7px 15px;
+    font-size: 12.5px;
   }
   .callout-card.card-top {
     right: 12px;
@@ -1729,6 +1944,10 @@ button {
   .inventory-cards-grid { grid-template-columns: 1fr; }
   .authority-grid { grid-template-columns: 1fr; }
   .conversion-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 540px; }
+  .pricing-pilot-banner { flex-direction: column; text-align: center; }
+  .pilot-action { width: 100%; }
+  .pilot-action .btn { width: 100%; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 

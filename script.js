@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackBox.style.display = 'block';
         feedbackBox.innerHTML = `
           <strong>Solicitação recebida com sucesso!</strong><br>
-          Olá, <strong>${name}</strong>! Nossa equipe entrará em contato via WhatsApp no número <strong>${phone}</strong> para agendar a demonstração personalizada para o seu ramo (<em>${segment}</em>).
+          Olá, <strong>${name}</strong>! Leônidas entrará em contato via WhatsApp no número <strong>${phone}</strong> para agendar a demonstração personalizada para o seu ramo (<em>${segment}</em>).
           <br><br>
           <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Meu%20nome%20%C3%A9%20${encodeURIComponent(name)}%2C%20do%20ramo%20${encodeURIComponent(segment)}.%20Acabei%20de%20solicitar%20a%20demonstra%C3%A7%C3%A3o%20do%20Gestor%20MEI%20no%20site." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="display: inline-block; margin-top: 6px;">
             💬 Prefere atendimento imediato? Falar agora no WhatsApp &rarr;
