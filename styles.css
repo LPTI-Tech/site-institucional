@@ -67,6 +67,9 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 body {
@@ -77,6 +80,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+section, .section, #exploded-view-track, .hero-scrolly-section, .navbar, .topbar, .footer {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body.menu-open {
@@ -443,7 +453,8 @@ button {
   position: relative;
   background: radial-gradient(ellipse at 50% 0%, #0d2847 0%, #071933 60%, #040d1a 100%);
   color: var(--white);
-  overflow: visible;
+  overflow: hidden;
+  max-width: 100%;
   padding-top: 60px;
 }
 
@@ -453,6 +464,7 @@ button {
   left: 50%;
   transform: translateX(-50%);
   width: 1000px;
+  max-width: 100vw;
   height: 500px;
   background: radial-gradient(circle, rgba(25, 118, 210, 0.25) 0%, rgba(46, 125, 50, 0.12) 45%, transparent 70%);
   pointer-events: none;
@@ -1992,10 +2004,10 @@ button {
 
   .nav-menu {
     position: fixed;
-    top: 76px;
+    top: 68px;
     left: -100%;
     width: 100%;
-    height: calc(100vh - 76px);
+    height: calc(100vh - 68px);
     background-color: var(--white);
     flex-direction: column;
     padding: 30px 24px;
@@ -2031,29 +2043,213 @@ button {
     border-right: none;
     border-bottom: 1px solid #FED7D7;
   }
+}
 
-  /* Vista Explodida Adaptada em Telas Médias/Pequenas */
-  .exploded-viewport {
-    height: auto;
+/* ================= MOBILE OTIMIZADO (<= 768px) ================= */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Header Superior Mobile com Respiro */
+  .navbar-container {
+    padding: 0 16px;
+    height: 68px;
+    gap: 8px;
+  }
+
+  .brand-wrapper {
+    margin-right: 0;
+    gap: 8px;
+  }
+
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .brand-title {
+    font-size: 15px;
+  }
+
+  .brand-sub {
+    font-size: 9px;
+  }
+
+  .nav-cta-box {
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .nav-cta {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .hamburger {
+    padding: 4px;
+  }
+
+  /* Palco 3D & Vista Explodida no Mobile (Touch & Scroll) */
+  .exploded-track {
+    min-height: 280vh;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .exploded-sticky-stage {
+    top: 68px;
+    height: calc(100vh - 68px);
+    padding: 8px 16px 16px;
+    display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .exploded-stage-indicator {
+    position: relative;
+    top: 0;
+    margin-bottom: 6px;
+    font-size: 11px;
+    padding: 4px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 94%;
+    flex-shrink: 0;
+  }
+
+  .exploded-viewport {
+    height: 310px;
+    width: 100%;
+    max-width: 100%;
+    perspective: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: visible;
+    position: relative;
   }
 
   .exploded-model-stack {
-    width: 90%;
-    max-width: 440px;
-    height: 220px;
-    transform: rotateX(35deg) rotateZ(-12deg);
-    margin-bottom: 20px;
+    width: 580px;
+    height: 260px;
+    transform-origin: center center;
+    transform: scale(0.62) rotateX(42deg) rotateZ(-16deg);
+    margin: 0 auto;
   }
 
-  .callout-card {
-    position: static;
+  /* Callouts Compactos e Uniformes na Base da Viewport Fixa */
+  .callout-card,
+  .callout-card.card-top,
+  .callout-card.card-mid,
+  .callout-card.card-bot,
+  .callout-layer-2 {
+    position: absolute;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 14px !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 32px) !important;
+    max-width: 360px !important;
+    padding: 12px 16px !important;
+    border-radius: 12px;
+    margin: 0 auto !important;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .callout-title {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .callout-desc {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .callout-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-bottom: 3px;
+  }
+
+  /* Correção do Card Teto MEI no Mobile */
+  .fiscal-container-card {
+    padding: 30px 18px;
+  }
+
+  .fiscal-meter-box {
+    padding: 20px 16px;
+  }
+
+  .meter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .meter-title {
+    font-size: 14.5px;
+    line-height: 1.35;
+  }
+
+  .meter-value {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  .meter-footer-note {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11.5px;
+  }
+
+  .das-action-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .das-action-callout .btn {
     width: 100%;
-    max-width: 100%;
-    margin-top: 12px;
-    opacity: 1 !important;
-    transform: none !important;
+  }
+}
+
+/* ================= SMARTPHONES COMPACTOS (<= 390px) ================= */
+@media (max-width: 390px) {
+  .exploded-viewport {
+    height: 275px;
+  }
+
+  .exploded-model-stack {
+    transform: scale(0.58) rotateX(42deg) rotateZ(-16deg);
+  }
+
+  .callout-card,
+  .callout-card.card-top,
+  .callout-card.card-mid,
+  .callout-card.card-bot,
+  .callout-layer-2 {
+    bottom: 8px !important;
+    padding: 10px 14px !important;
+    max-width: 320px !important;
+  }
+
+  .callout-desc {
+    font-size: 11.5px;
+    line-height: 1.35;
   }
 }
 

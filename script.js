@@ -124,17 +124,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Aplicação das transformações aceleradas por GPU
       const isMobile = window.innerWidth <= 768;
-      const spreadY = isMobile ? 110 : 195;
-      const spreadZ = isMobile ? 35 : 110;
+      const isSmallMobile = window.innerWidth <= 390;
+      const spreadY = isMobile ? 85 : 195;
+      const spreadZ = isMobile ? 40 : 110;
 
-      // Dinâmica de inclinação isométrica acentuada: pico em rotateX(52deg) rotateZ(-28deg)
+      // Dinâmica de inclinação isométrica e escala do palco 3D:
       if (modelStack) {
         if (!isMobile) {
           const rotX = 46 + separation * 6;   // 46deg -> 52deg
           const rotZ = -24 - separation * 4;  // -24deg -> -28deg
           modelStack.style.transform = `rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
         } else {
-          modelStack.style.transform = `rotateX(35deg) rotateZ(-12deg)`;
+          const scale = isSmallMobile ? 0.58 : 0.62;
+          const rotX = 36 + separation * 6;  // 36deg -> 42deg
+          const rotZ = -12 - separation * 4; // -12deg -> -16deg
+          modelStack.style.transform = `scale(${scale}) rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
         }
       }
 
@@ -142,11 +146,30 @@ document.addEventListener('DOMContentLoaded', () => {
       layer2.style.transform = `translate3d(0, 0, 0)`;
       layer3.style.transform = `translate3d(0, ${separation * spreadY}px, ${-separation * spreadZ}px)`;
 
-      // Transição suave de opacidade dos callout cards
-      const calloutOpacity = Math.max(0, Math.min(1, (separation - 0.20) / 0.55));
-      if (callout1) callout1.style.opacity = calloutOpacity;
-      if (callout2) callout2.style.opacity = calloutOpacity;
-      if (callout3) callout3.style.opacity = calloutOpacity;
+      // Transição e sincronização dos callout cards
+      if (!isMobile) {
+        const calloutOpacity = Math.max(0, Math.min(1, (separation - 0.20) / 0.55));
+        if (callout1) callout1.style.opacity = calloutOpacity;
+        if (callout2) callout2.style.opacity = calloutOpacity;
+        if (callout3) callout3.style.opacity = calloutOpacity;
+      } else {
+        // No celular: exibição sincronizada por fases com destaque claro e uniforme de cada camada
+        let op1 = 0, op2 = 0, op3 = 0;
+        if (currentProgress >= 0.16 && currentProgress < 0.45) {
+          op1 = Math.min(1, (currentProgress - 0.16) / 0.10);
+          if (currentProgress > 0.38) op1 = Math.max(0, (0.45 - currentProgress) / 0.07);
+        } else if (currentProgress >= 0.45 && currentProgress < 0.72) {
+          op2 = Math.min(1, (currentProgress - 0.45) / 0.10);
+          if (currentProgress > 0.65) op2 = Math.max(0, (0.72 - currentProgress) / 0.07);
+        } else if (currentProgress >= 0.72 && currentProgress < 0.98) {
+          op3 = Math.min(1, (currentProgress - 0.72) / 0.10);
+          if (currentProgress > 0.90) op3 = Math.max(0, (0.98 - currentProgress) / 0.08);
+        }
+
+        if (callout1) callout1.style.opacity = op1;
+        if (callout2) callout2.style.opacity = op2;
+        if (callout3) callout3.style.opacity = op3;
+      }
 
       if (explodedStatus) {
         explodedStatus.textContent = statusLabel;
