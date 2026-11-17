@@ -799,8 +799,10 @@ button {
   z-index: 31;
 }
 
-.callout-card.card-mid {
-  left: 24px;
+.callout-card.card-mid,
+.callout-layer-2 {
+  left: 4%; /* Afastamento lateral para nao sobrepor a placa isometrica do meio */
+  max-width: 270px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 32;
@@ -1958,8 +1960,9 @@ button {
     top: 20px;
     max-width: 250px;
   }
-  .callout-card.card-mid {
-    left: 12px;
+  .callout-card.card-mid,
+  .callout-layer-2 {
+    left: 2%;
     max-width: 250px;
   }
   .callout-card.card-bot {
