@@ -315,6 +315,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .brand-wrapper {
@@ -322,6 +323,8 @@ button {
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 48px; /* Respiro horizontal solicitado de 48px */
 }
 
 .brand-icon {
@@ -335,6 +338,7 @@ button {
 .brand-text {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 }
 
 .brand-title {
@@ -356,12 +360,16 @@ button {
 .nav-menu {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 20px;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -370,6 +378,7 @@ button {
   color: var(--slate);
   padding: 6px 0;
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -385,6 +394,20 @@ button {
   height: 2.5px;
   background-color: var(--primary);
   border-radius: var(--radius-pill);
+}
+
+.nav-cta-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-cta {
+  white-space: nowrap;
+  font-weight: 800;
+  padding: 9px 20px;
 }
 
 .nav-tag {
@@ -505,7 +528,7 @@ button {
 /* Container do Track da Vista Explodida */
 .exploded-track {
   position: relative;
-  min-height: 250vh; /* Altura do scroll para animação fluida */
+  min-height: 360vh; /* Altura de rolagem para animação fluida e contínua */
   width: 100%;
 }
 
@@ -519,7 +542,7 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 10px 20px;
+  padding: 10px 24px;
 }
 
 .exploded-stage-indicator {
@@ -543,9 +566,8 @@ button {
 .exploded-viewport {
   position: relative;
   width: 100%;
-  max-width: 960px;
-  height: 520px;
-  perspective: 1400px;
+  max-width: 1240px;
+  height: 560px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -553,12 +575,14 @@ button {
 
 .exploded-model-stack {
   position: relative;
-  width: 620px;
-  height: 280px;
+  width: 580px;
+  height: 260px;
+  perspective: 1400px;
   transform-style: preserve-3d;
   transform: rotateX(46deg) rotateZ(-24deg);
   transition: transform 0.1s ease-out;
   will-change: transform;
+  margin: 0 auto;
 }
 
 /* Camadas Físicas da Vista Explodida */
@@ -742,37 +766,40 @@ button {
   border-radius: 1px;
 }
 
-/* Callout Cards Flutuantes (Aparecem na Separação) */
+/* Callout Cards Flutuantes (Posicionados nas Colunas Laterais Externas) */
 .callout-card {
   position: absolute;
-  background: rgba(10, 28, 51, 0.92);
+  background: rgba(10, 28, 51, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: var(--radius-md);
   padding: 16px 20px;
-  width: 320px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease;
   pointer-events: none;
-  z-index: 20;
 }
 
 .callout-card.card-top {
-  right: -40px;
-  top: 10px;
+  right: 24px;
+  top: 40px;
+  z-index: 31;
 }
 
 .callout-card.card-mid {
-  left: -50px;
-  top: 45%;
+  left: 24px;
+  top: 50%;
   transform: translateY(-50%);
+  z-index: 32;
 }
 
 .callout-card.card-bot {
-  right: -30px;
-  bottom: 10px;
+  right: 24px;
+  bottom: 40px;
+  z-index: 33;
 }
 
 .callout-tag {
@@ -1665,6 +1692,36 @@ button {
 }
 
 /* ================= RESPONSIVIDADE ================= */
+@media (max-width: 1280px) and (min-width: 901px) {
+  .brand-wrapper {
+    margin-right: 28px;
+  }
+  .nav-list {
+    gap: 14px;
+  }
+  .nav-link {
+    font-size: 13.5px;
+  }
+  .nav-cta {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  .callout-card.card-top {
+    right: 12px;
+    top: 20px;
+    max-width: 250px;
+  }
+  .callout-card.card-mid {
+    left: 12px;
+    max-width: 250px;
+  }
+  .callout-card.card-bot {
+    right: 12px;
+    bottom: 20px;
+    max-width: 250px;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-headline { font-size: 42px; }
   .feature-grid-layout, .feature-grid-layout.reverse { grid-template-columns: 1fr; gap: 40px; }
@@ -1722,16 +1779,25 @@ button {
   }
 
   /* Vista Explodida Adaptada em Telas Médias/Pequenas */
+  .exploded-viewport {
+    height: auto;
+    flex-direction: column;
+    padding: 20px 0;
+  }
+
   .exploded-model-stack {
     width: 90%;
-    max-width: 480px;
+    max-width: 440px;
+    height: 220px;
     transform: rotateX(35deg) rotateZ(-12deg);
+    margin-bottom: 20px;
   }
 
   .callout-card {
     position: static;
     width: 100%;
-    margin-top: 10px;
+    max-width: 100%;
+    margin-top: 12px;
     opacity: 1 !important;
     transform: none !important;
   }

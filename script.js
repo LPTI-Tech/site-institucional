@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ----------------------------------------------------------------------------
-  // 3. Vista Explodida 3D Controlada Diretamente pelo Scroll (Scrollytelling)
+  // 3. Vista Explodida 3D com LERP & Easing Cúbico (easeInOutCubic)
   // ----------------------------------------------------------------------------
   const explodedTrack = document.getElementById('exploded-view-track');
   const layer1 = document.getElementById('exploded-layer-1');
@@ -61,39 +61,60 @@ document.addEventListener('DOMContentLoaded', () => {
   const explodedStatus = document.getElementById('exploded-status-text');
 
   if (explodedTrack && layer1 && layer2 && layer3) {
-    let explodedTicking = false;
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let isLoopRunning = false;
 
-    const updateExplodedView = () => {
+    // Curva de interpolação cúbica (easeInOutCubic)
+    const easeInOutCubic = (t) => {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    };
+
+    const updateTargetProgress = () => {
       const rect = explodedTrack.getBoundingClientRect();
       const trackHeight = explodedTrack.offsetHeight - window.innerHeight;
-      
       if (trackHeight <= 0) return;
 
-      let progress = -rect.top / trackHeight;
-      progress = Math.max(0, Math.min(1, progress));
+      const rawProgress = -rect.top / trackHeight;
+      targetProgress = Math.max(0, Math.min(1, rawProgress));
 
-      // Curva de separação:
-      // 0% a 15%: montado (0)
-      // 15% a 50%: abrindo (0 -> 1)
-      // 50% a 75%: totalmente explodido (1)
-      // 75% a 95%: fechando (1 -> 0)
-      // 95% a 100%: montado (0)
+      if (!isLoopRunning) {
+        isLoopRunning = true;
+        requestAnimationFrame(renderLoop);
+      }
+    };
+
+    const renderLoop = () => {
+      // Interpolação Linear Suave (LERP)
+      currentProgress += (targetProgress - currentProgress) * 0.08;
+
+      const delta = Math.abs(targetProgress - currentProgress);
+      if (delta < 0.0001) {
+        currentProgress = targetProgress;
+      }
+
+      // Fases com transição cúbica:
+      // 0.00 a 0.16: montado (0)
+      // 0.16 a 0.50: abrindo com easeInOutCubic (0 -> 1)
+      // 0.50 a 0.78: totalmente explodido (1)
+      // 0.78 a 0.98: fechando com easeInOutCubic (1 -> 0)
+      // 0.98 a 1.00: montado (0)
       let separation = 0;
-      let statusLabel = '✦ Módulo Montado: Terminal de Operação';
+      let statusLabel = '✦ Terminal Integrado: Pronto para Vender';
 
-      if (progress < 0.15) {
+      if (currentProgress < 0.16) {
         separation = 0;
         statusLabel = '✦ Terminal Integrado: Pronto para Vender';
-      } else if (progress >= 0.15 && progress < 0.50) {
-        const t = (progress - 0.15) / 0.35;
-        separation = Math.sin(t * (Math.PI / 2)); // Ease-out suave
+      } else if (currentProgress >= 0.16 && currentProgress < 0.50) {
+        const t = (currentProgress - 0.16) / 0.34;
+        separation = easeInOutCubic(Math.max(0, Math.min(1, t)));
         statusLabel = '✦ Vista Explodida: Revelando a Engenharia';
-      } else if (progress >= 0.50 && progress < 0.75) {
+      } else if (currentProgress >= 0.50 && currentProgress < 0.78) {
         separation = 1;
         statusLabel = '✦ 3 Camadas em Ação: PDV, Blindagem & Nuvem';
-      } else if (progress >= 0.75 && progress < 0.95) {
-        const t = (progress - 0.75) / 0.20;
-        separation = 1 - Math.sin(t * (Math.PI / 2)); // Ease-in de fechamento
+      } else if (currentProgress >= 0.78 && currentProgress < 0.98) {
+        const t = (currentProgress - 0.78) / 0.20;
+        separation = 1 - easeInOutCubic(Math.max(0, Math.min(1, t)));
         statusLabel = '✦ Reagrupamento: Hardware e Software Unificados';
       } else {
         separation = 0;
@@ -102,15 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Aplicação das transformações aceleradas por GPU
       const isMobile = window.innerWidth <= 768;
-      const spreadY = isMobile ? 85 : 135;
-      const spreadZ = isMobile ? 20 : 55;
+      const spreadY = isMobile ? 95 : 160;
+      const spreadZ = isMobile ? 22 : 65;
 
       layer1.style.transform = `translate3d(0, ${-separation * spreadY}px, ${separation * spreadZ}px)`;
       layer2.style.transform = `translate3d(0, 0, 0)`;
       layer3.style.transform = `translate3d(0, ${separation * spreadY}px, ${-separation * spreadZ}px)`;
 
-      // Transição dos cards de callout
-      const calloutOpacity = Math.max(0, Math.min(1, (separation - 0.25) / 0.5));
+      // Transição suave de opacidade dos callout cards
+      const calloutOpacity = Math.max(0, Math.min(1, (separation - 0.20) / 0.55));
       if (callout1) callout1.style.opacity = calloutOpacity;
       if (callout2) callout2.style.opacity = calloutOpacity;
       if (callout3) callout3.style.opacity = calloutOpacity;
@@ -118,20 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (explodedStatus) {
         explodedStatus.textContent = statusLabel;
       }
+
+      if (delta >= 0.0001) {
+        requestAnimationFrame(renderLoop);
+      } else {
+        isLoopRunning = false;
+      }
     };
 
-    window.addEventListener('scroll', () => {
-      if (!explodedTicking) {
-        window.requestAnimationFrame(() => {
-          updateExplodedView();
-          explodedTicking = false;
-        });
-        explodedTicking = true;
-      }
-    }, { passive: true });
+    window.addEventListener('scroll', updateTargetProgress, { passive: true });
+    window.addEventListener('resize', updateTargetProgress, { passive: true });
 
     // Chamada inicial
-    updateExplodedView();
+    updateTargetProgress();
   }
 
   // ----------------------------------------------------------------------------
