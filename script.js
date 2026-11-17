@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Vista Explodida 3D com LERP & Easing Cúbico (easeInOutCubic)
   // ----------------------------------------------------------------------------
   const explodedTrack = document.getElementById('exploded-view-track');
+  const modelStack = document.querySelector('.exploded-model-stack');
   const layer1 = document.getElementById('exploded-layer-1');
   const layer2 = document.getElementById('exploded-layer-2');
   const layer3 = document.getElementById('exploded-layer-3');
@@ -123,8 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Aplicação das transformações aceleradas por GPU
       const isMobile = window.innerWidth <= 768;
-      const spreadY = isMobile ? 95 : 160;
-      const spreadZ = isMobile ? 22 : 65;
+      const spreadY = isMobile ? 110 : 195;
+      const spreadZ = isMobile ? 35 : 110;
+
+      // Dinâmica de inclinação isométrica acentuada: pico em rotateX(52deg) rotateZ(-28deg)
+      if (modelStack) {
+        if (!isMobile) {
+          const rotX = 46 + separation * 6;   // 46deg -> 52deg
+          const rotZ = -24 - separation * 4;  // -24deg -> -28deg
+          modelStack.style.transform = `rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
+        } else {
+          modelStack.style.transform = `rotateX(35deg) rotateZ(-12deg)`;
+        }
+      }
 
       layer1.style.transform = `translate3d(0, ${-separation * spreadY}px, ${separation * spreadZ}px)`;
       layer2.style.transform = `translate3d(0, 0, 0)`;
