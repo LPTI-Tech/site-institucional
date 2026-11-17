@@ -15,13 +15,13 @@
   <meta property="og:url" content="https://www.lptitech.com.br/termos-de-uso.html">
   <meta property="og:title" content="Termos de Uso &bull; LPTI Tech">
   <meta property="og:description" content="Termos de Uso e Condições Gerais de Serviços da LPTI Tech.">
-  <meta property="og:image" content="https://site-institucional-lpti-tech.vercel.app/assets/og-image.png">
+  <meta property="og:image" content="https://www.lptitech.com.br/assets/og-image.png">
 
   <!-- Favicons Oficiais -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#0D47A1">
+  <meta name="theme-color" content="#071933">
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,26 +52,36 @@
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="container navbar-container">
-      <a href="index.html" class="brand-logo" aria-label="LPTI Tech Página Inicial">
-        <img src="assets/logo-light.svg" alt="LPTI Tech Logo" class="logo-img" width="250" height="66">
+      <a href="index.html#hero" class="brand-wrapper" aria-label="Gestor MEI e LPTI Tech Página Inicial">
+        <img src="assets/gestor-mei-icon.png" alt="Logo Oficial Gestor MEI" class="brand-icon" width="44" height="44">
+        <div class="brand-text">
+          <span class="brand-title">GESTOR MEI</span>
+          <span class="brand-sub">Por LPTI Tech</span>
+        </div>
       </a>
 
+      <!-- Menu Desktop -->
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav-list">
           <li><a href="index.html#hero" class="nav-link">Início</a></li>
-          <li><a href="index.html#quem-somos" class="nav-link">Quem Somos</a></li>
-          <li><a href="index.html#servicos" class="nav-link">Serviços</a></li>
-          <li><a href="index.html#projetos" class="nav-link">Nossos Projetos</a></li>
-          <li><a href="index.html#produtos" class="nav-link badge-link">Gestor MEI <span class="nav-tag">Produto Próprio</span></a></li>
-          <li><a href="index.html#por-que-escolher" class="nav-link">Por Que Escolher</a></li>
+          <li><a href="index.html#problema" class="nav-link">Antes x Depois</a></li>
+          <li><a href="index.html#pdv" class="nav-link">PDV Balcão</a></li>
+          <li><a href="index.html#delivery" class="nav-link">Delivery</a></li>
+          <li><a href="index.html#estoque" class="nav-link">Estoque</a></li>
+          <li><a href="index.html#fiscal" class="nav-link">Teto MEI</a></li>
+          <li><a href="index.html#planos" class="nav-link">Planos</a></li>
+          <li><a href="index.html#lptitech" class="nav-link">LPTI Tech</a></li>
         </ul>
       </nav>
 
-      <div class="nav-actions">
+      <!-- Ações do Header -->
+      <div class="nav-cta-box">
         <a href="index.html#contato" class="btn btn-primary btn-sm nav-cta">
-          Fale Conosco
+          <span>Testar Grátis</span>
         </a>
-        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu de navegação">
+
+        <!-- Botão Hambúrguer Mobile -->
+        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu de navegação" aria-expanded="false">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
@@ -133,7 +143,7 @@
 
         <h2>4. Níveis de Serviço (SLA) e Disponibilidade</h2>
         <p>
-          A LPTI Tech empenha esforços contínuos e metodologias de ponta para manter seus serviços operando com alta disponibilidade (meta 99.9%). Contratos corporativos específicos celebrados individualmente com cada cliente definem o SLA, escopo, garantias e prazos de atendimento técnico.
+          A LPTI Tech empenha esforços contínuos e metodologias de ponta para manter seus serviços operando com meta de disponibilidade de 99,9%. Contratos corporativos específicos celebrados individualmente com cada cliente definem o SLA, escopo, garantias e prazos de atendimento técnico.
         </p>
 
         <h2>5. Limitação de Responsabilidade</h2>
@@ -162,70 +172,67 @@
 
   <!-- RODAPÉ OFICIAL -->
   <footer class="footer">
-    <div class="container footer-container">
+    <div class="container">
       <div class="footer-top">
         <div class="footer-brand-col">
-          <img src="assets/logo-dark.svg" alt="LPTI Tech" class="footer-logo-img" width="180">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/gestor-mei-icon.png" alt="Gestor MEI Icon" width="36" height="36" style="border-radius: 8px;">
+            <span class="brand-title" style="color: #FFFFFF;">GESTOR MEI</span>
+          </div>
           <p class="footer-slogan">
-            Tecnologia e Gestão para MEIs e Pequenas Empresas
+            O ERP inteligente para quem não tem tempo a perder. Desenvolvido para transformar o cotidiano do microempreendedor brasileiro.
           </p>
-          <div class="footer-contact-summary">
-            <p class="footer-summary-item">
-              <span class="summary-icon">📧</span>
-              <a href="mailto:contato@lptitech.com.br">contato@lptitech.com.br</a>
-            </p>
-            <p class="footer-summary-item">
-              <span class="summary-icon">📞</span>
-              <a href="tel:+5531988004560">(31) 98800-4560</a>
-            </p>
-            <p class="footer-summary-item">
-              <span class="summary-icon">📍</span>
-              <span>Betim - MG</span>
-            </p>
-            <p class="footer-summary-item">
-              <span class="summary-icon">🌎</span>
-              <span>Atendimento remoto em todo o Brasil</span>
-            </p>
+          <p class="footer-author-badge">
+            ✦ LPTI Tech — Desenvolvido por Leônidas Paulino
+          </p>
+
+          <div class="footer-social-links">
+            <a href="https://linkedin.com/company/lpti-tech" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn LPTI Tech">in</a>
+            <a href="https://instagram.com/lptitech" target="_blank" rel="noopener noreferrer" aria-label="Instagram LPTI Tech">ig</a>
+            <a href="https://wa.me/5531988004560" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp LPTI Tech">wa</a>
           </div>
         </div>
 
         <div class="footer-nav-col">
-          <h4 class="footer-nav-title">Navegação</h4>
+          <h4 class="footer-nav-title">Módulos</h4>
           <ul class="footer-nav-list">
-            <li><a href="index.html#hero">Início</a></li>
-            <li><a href="index.html#quem-somos">Quem Somos</a></li>
-            <li><a href="index.html#servicos">Serviços</a></li>
-            <li><a href="index.html#produtos">Gestor MEI</a></li>
-            <li><a href="index.html#contato">Contato</a></li>
+            <li><a href="index.html#pdv">PDV Balcão</a></li>
+            <li><a href="index.html#delivery">Controle de Delivery</a></li>
+            <li><a href="index.html#estoque">Compras &amp; Estoque</a></li>
+            <li><a href="index.html#fiscal">DAS &amp; Teto MEI</a></li>
           </ul>
         </div>
 
         <div class="footer-nav-col">
-          <h4 class="footer-nav-title">Legal</h4>
+          <h4 class="footer-nav-title">Institucional</h4>
           <ul class="footer-nav-list">
+            <li><a href="index.html#planos">Planos &amp; Preços</a></li>
+            <li><a href="index.html#lptitech">Sobre a LPTI Tech</a></li>
             <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
             <li><a href="termos-de-uso.html" style="color: var(--blue-light); font-weight: 700;">Termos de Uso</a></li>
-            <li><a href="index.html#diferenciais">Segurança &amp; LGPD</a></li>
+            <li><a href="termos-servico-saas.html">Termos do Gestor MEI</a></li>
           </ul>
         </div>
 
         <div class="footer-nav-col">
-          <h4 class="footer-nav-title">Fale Conosco</h4>
+          <h4 class="footer-nav-title">Contato</h4>
           <ul class="footer-contact-list">
             <li><strong>E-mail:</strong><br><a href="mailto:contato@lptitech.com.br">contato@lptitech.com.br</a></li>
-            <li><strong>Telefone / WhatsApp:</strong><br><a href="tel:+5531988004560">(31) 98800-4560</a></li>
-            <li><strong>Localização:</strong><br>Betim - MG &bull; Brasil<br><span style="color: #90A4AE; font-size: 13px;">Atendimento remoto em todo o Brasil.</span></li>
+            <li><strong>WhatsApp:</strong><br><a href="tel:+5531988004560">(31) 98800-4560</a></li>
+            <li><strong>Localização:</strong><br>Betim - MG &bull; Atendimento remoto e presencial</li>
+            <li><span style="color: #90A4AE; font-size: 13px;">Atendimento em todo o Brasil.</span></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copy">
+        <div>
           &copy; 2026 LPTI Tech. Todos os direitos reservados. LPTI Tech — Desenvolvido por Leônidas Paulino.
         </div>
         <div class="footer-legal">
           <a href="politica-de-privacidade.html">Política de Privacidade</a> &bull; 
-          <a href="termos-de-uso.html">Termos de Uso</a>
+          <a href="termos-de-uso.html">Termos de Uso</a> &bull;
+          <a href="termos-servico-saas.html">Termos do Gestor MEI</a>
         </div>
       </div>
     </div>
