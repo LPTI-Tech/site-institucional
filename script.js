@@ -73,11 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateTargetProgress = () => {
       const rect = explodedTrack.getBoundingClientRect();
-      const trackHeight = explodedTrack.offsetHeight - window.innerHeight;
-      if (trackHeight <= 0) return;
+      const scrollable = rect.height - window.innerHeight;
+      if (scrollable <= 0) return;
 
-      const rawProgress = -rect.top / trackHeight;
-      targetProgress = Math.max(0, Math.min(1, rawProgress));
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      targetProgress = progress;
 
       if (!isLoopRunning) {
         isLoopRunning = true;
@@ -95,26 +95,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Fases com transição cúbica:
-      // 0.00 a 0.16: montado (0)
-      // 0.16 a 0.50: abrindo com easeInOutCubic (0 -> 1)
-      // 0.50 a 0.78: totalmente explodido (1)
-      // 0.78 a 0.98: fechando com easeInOutCubic (1 -> 0)
+      // 0.00 a 0.15: montado (0)
+      // 0.15 a 0.50: abrindo com easeInOutCubic (0 -> 1)
+      // 0.50 a 0.80: totalmente explodido (1)
+      // 0.80 a 0.98: fechando com easeInOutCubic (1 -> 0)
       // 0.98 a 1.00: montado (0)
       let separation = 0;
       let statusLabel = '✦ Terminal Integrado: Pronto para Vender';
 
-      if (currentProgress < 0.16) {
+      if (currentProgress < 0.15) {
         separation = 0;
         statusLabel = '✦ Terminal Integrado: Pronto para Vender';
-      } else if (currentProgress >= 0.16 && currentProgress < 0.50) {
-        const t = (currentProgress - 0.16) / 0.34;
+      } else if (currentProgress >= 0.15 && currentProgress < 0.50) {
+        const t = (currentProgress - 0.15) / 0.35;
         separation = easeInOutCubic(Math.max(0, Math.min(1, t)));
         statusLabel = '✦ Vista Explodida: Revelando a Engenharia';
-      } else if (currentProgress >= 0.50 && currentProgress < 0.78) {
+      } else if (currentProgress >= 0.50 && currentProgress < 0.80) {
         separation = 1;
         statusLabel = '✦ 3 Camadas em Ação: PDV, Blindagem & Nuvem';
-      } else if (currentProgress >= 0.78 && currentProgress < 0.98) {
-        const t = (currentProgress - 0.78) / 0.20;
+      } else if (currentProgress >= 0.80 && currentProgress < 0.98) {
+        const t = (currentProgress - 0.80) / 0.18;
         separation = 1 - easeInOutCubic(Math.max(0, Math.min(1, t)));
         statusLabel = '✦ Reagrupamento: Hardware e Software Unificados';
       } else {
@@ -124,9 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Aplicação das transformações aceleradas por GPU
       const isMobile = window.innerWidth <= 768;
-      const isSmallMobile = window.innerWidth <= 390;
-      const spreadY = isMobile ? 85 : 195;
-      const spreadZ = isMobile ? 40 : 110;
+      const spreadY = isMobile ? 85 : 175;
+      const spreadZ = isMobile ? 40 : 90;
 
       // Dinâmica de inclinação isométrica e escala do palco 3D:
       if (modelStack) {
@@ -135,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const rotZ = -24 - separation * 4;  // -24deg -> -28deg
           modelStack.style.transform = `rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
         } else {
-          const scale = isSmallMobile ? 0.58 : 0.62;
+          const scale = 0.56;
           const rotX = 36 + separation * 6;  // 36deg -> 42deg
           const rotZ = -12 - separation * 4; // -12deg -> -16deg
           modelStack.style.transform = `scale(${scale}) rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
@@ -148,22 +147,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Transição e sincronização dos callout cards
       if (!isMobile) {
-        const calloutOpacity = Math.max(0, Math.min(1, (separation - 0.20) / 0.55));
+        // Desktop: opacidade de 0 a 1 entre 15% e 85% do progresso
+        let calloutOpacity = 0;
+        if (currentProgress < 0.15) {
+          calloutOpacity = 0;
+        } else if (currentProgress >= 0.15 && currentProgress <= 0.40) {
+          calloutOpacity = (currentProgress - 0.15) / 0.25;
+        } else if (currentProgress > 0.40 && currentProgress <= 0.85) {
+          calloutOpacity = 1;
+        } else {
+          calloutOpacity = Math.max(0, 1 - (currentProgress - 0.85) / 0.12);
+        }
+
         if (callout1) callout1.style.opacity = calloutOpacity;
         if (callout2) callout2.style.opacity = calloutOpacity;
         if (callout3) callout3.style.opacity = calloutOpacity;
       } else {
         // No celular: exibição sincronizada por fases com destaque claro e uniforme de cada camada
         let op1 = 0, op2 = 0, op3 = 0;
-        if (currentProgress >= 0.16 && currentProgress < 0.45) {
-          op1 = Math.min(1, (currentProgress - 0.16) / 0.10);
+        if (currentProgress >= 0.15 && currentProgress < 0.45) {
+          op1 = Math.min(1, (currentProgress - 0.15) / 0.10);
           if (currentProgress > 0.38) op1 = Math.max(0, (0.45 - currentProgress) / 0.07);
         } else if (currentProgress >= 0.45 && currentProgress < 0.72) {
           op2 = Math.min(1, (currentProgress - 0.45) / 0.10);
           if (currentProgress > 0.65) op2 = Math.max(0, (0.72 - currentProgress) / 0.07);
-        } else if (currentProgress >= 0.72 && currentProgress < 0.98) {
+        } else if (currentProgress >= 0.72 && currentProgress <= 0.96) {
           op3 = Math.min(1, (currentProgress - 0.72) / 0.10);
-          if (currentProgress > 0.90) op3 = Math.max(0, (0.98 - currentProgress) / 0.08);
+          if (currentProgress > 0.88) op3 = Math.max(0, (0.96 - currentProgress) / 0.08);
         }
 
         if (callout1) callout1.style.opacity = op1;
