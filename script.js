@@ -49,28 +49,112 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ----------------------------------------------------------------------------
-  // 3. Vista Explodida 3D com LERP & Easing Cúbico (easeInOutCubic)
+  // Função Utilitária: Contagem Progressiva de Números (Count-Up)
+  // ----------------------------------------------------------------------------
+  const animateCountUp = (element) => {
+    if (!element || element.dataset.counted === 'true') return;
+    element.dataset.counted = 'true';
+
+    const targetVal = parseFloat(element.getAttribute('data-counter'));
+    if (isNaN(targetVal)) return;
+
+    const format = element.getAttribute('data-format') || 'number';
+    const duration = 1400; // 1.4 segundos de animação suave
+    const startTime = performance.now();
+
+    const formatValue = (current) => {
+      if (format === 'currency') {
+        return 'R$ ' + current.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else if (format === 'percent') {
+        const decimals = targetVal % 1 === 0 ? 0 : 1;
+        return current.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + '%';
+      } else if (format === 'seconds') {
+        const intVal = Math.round(current);
+        return '< ' + intVal + 's';
+      } else {
+        const decimals = targetVal % 1 === 0 ? 0 : (targetVal.toString().split('.')[1] || '').length;
+        return current.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      }
+    };
+
+    const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+    const updateCounter = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const easedProgress = easeOutExpo(progress);
+      const currentVal = targetVal * easedProgress;
+
+      element.textContent = formatValue(currentVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent = formatValue(targetVal);
+      }
+    };
+
+    requestAnimationFrame(updateCounter);
+  };
+
+  // Observador de Entrada no Viewport para Indicadores Numéricos Globais
+  const counterElements = document.querySelectorAll('[data-counter]');
+  if ('IntersectionObserver' in window && counterElements.length > 0) {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCountUp(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.15,
+      rootMargin: '0px 0px -20px 0px'
+    });
+
+    counterElements.forEach(el => counterObserver.observe(el));
+  } else {
+    counterElements.forEach(el => animateCountUp(el));
+  }
+
+  // ----------------------------------------------------------------------------
+  // 3. Scrollytelling 3D Cinematográfico das 4 Telas Reais com LERP & Perspectiva
   // ----------------------------------------------------------------------------
   const explodedTrack = document.getElementById('exploded-view-track');
-  const modelStack = document.querySelector('.exploded-model-stack');
-  const layer1 = document.getElementById('exploded-layer-1');
-  const layer2 = document.getElementById('exploded-layer-2');
-  const layer3 = document.getElementById('exploded-layer-3');
-  const callout1 = document.getElementById('callout-1');
-  const callout2 = document.getElementById('callout-2');
-  const callout3 = document.getElementById('callout-3');
-  const explodedStatus = document.getElementById('exploded-status-text');
+  const scrollyScene = document.getElementById('scrolly-scene');
+  const screenFrames = document.querySelectorAll('.scrolly-screen-frame');
+  const captionCards = document.querySelectorAll('.scrolly-caption-card');
+  const stepButtons = document.querySelectorAll('.scrolly-step-btn');
+  const progressFill = document.getElementById('scrolly-progress-fill');
+  const statusText = document.getElementById('exploded-status-text');
 
-  if (explodedTrack && layer1 && layer2 && layer3) {
+  // Pré-carregamento imediato das imagens em memória (WebP otimizado)
+  const screenUrls = [
+    'assets/screens/1-pdv.webp',
+    'assets/screens/2-estoque.webp',
+    'assets/screens/3-compras.webp',
+    'assets/screens/4-dashboard.webp'
+  ];
+  screenUrls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+
+  const statusLabels = [
+    '✦ PDV Balcão: Vendas em Menos de 10 Segundos',
+    '✦ Controle de Estoque: Alertas em Tempo Real & Baixa Automática',
+    '✦ Compras & XML: Importação NF-e sem Digitação Manual',
+    '✦ Dashboard Estratégico: Gestão do Teto MEI & Margem Líquida'
+  ];
+
+  if (explodedTrack && screenFrames.length > 0) {
     let targetProgress = 0;
     let currentProgress = 0;
     let isLoopRunning = false;
+    let currentActiveIndex = -1;
 
-    // Curva de interpolação cúbica (easeInOutCubic)
-    const easeInOutCubic = (t) => {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    };
-
+    // Cálculo do progresso no scroll
     const updateTargetProgress = () => {
       const rect = explodedTrack.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
@@ -86,106 +170,202 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderLoop = () => {
-      // Interpolação Linear Suave (LERP)
-      currentProgress += (targetProgress - currentProgress) * 0.08;
+      // Interpolação Linear Suave (LERP 0.052) para inércia mais suave e cinematográfica
+      currentProgress += (targetProgress - currentProgress) * 0.052;
 
       const delta = Math.abs(targetProgress - currentProgress);
-      if (delta < 0.0001) {
+      if (delta < 0.00005) {
         currentProgress = targetProgress;
       }
 
-      // Fases com transição cúbica:
-      // 0.00 a 0.15: montado (0)
-      // 0.15 a 0.50: abrindo com easeInOutCubic (0 -> 1)
-      // 0.50 a 0.80: totalmente explodido (1)
-      // 0.80 a 0.98: fechando com easeInOutCubic (1 -> 0)
-      // 0.98 a 1.00: montado (0)
-      let separation = 0;
-      let statusLabel = '✦ Terminal Integrado: Pronto para Vender';
-
-      if (currentProgress < 0.15) {
-        separation = 0;
-        statusLabel = '✦ Terminal Integrado: Pronto para Vender';
-      } else if (currentProgress >= 0.15 && currentProgress < 0.50) {
-        const t = (currentProgress - 0.15) / 0.35;
-        separation = easeInOutCubic(Math.max(0, Math.min(1, t)));
-        statusLabel = '✦ Vista Explodida: Revelando a Engenharia';
-      } else if (currentProgress >= 0.50 && currentProgress < 0.80) {
-        separation = 1;
-        statusLabel = '✦ Visão Integrada: Rápido no Balcão, Seguro contra Desvios & Dados Protegidos';
-      } else if (currentProgress >= 0.80 && currentProgress < 0.98) {
-        const t = (currentProgress - 0.80) / 0.18;
-        separation = 1 - easeInOutCubic(Math.max(0, Math.min(1, t)));
-        statusLabel = '✦ Reagrupamento: Hardware e Software Unificados';
-      } else {
-        separation = 0;
-        statusLabel = '✦ Terminal Pronto: Conheça os Módulos Práticos ↓';
-      }
-
-      // Aplicação das transformações aceleradas por GPU
+      // Progresso mapeado no universo das 4 telas (0 a 3)
+      const p = Math.min(3, Math.max(0, currentProgress * 3));
       const isMobile = window.innerWidth <= 768;
-      const spreadY = isMobile ? 85 : 175;
-      const spreadZ = isMobile ? 40 : 90;
 
-      // Dinâmica de inclinação isométrica e escala do palco 3D:
-      if (modelStack) {
+      // Dinâmica de Perspectiva 3D suave (rotateX, rotateY e escala dinâmicos)
+      if (scrollyScene) {
         if (!isMobile) {
-          const rotX = 46 + separation * 6;   // 46deg -> 52deg
-          const rotZ = -24 - separation * 4;  // -24deg -> -28deg
-          modelStack.style.transform = `rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
+          const baseRotX = 6.5 - currentProgress * 2;
+          const dynRotX = baseRotX + Math.sin(currentProgress * Math.PI * 4) * 2.5;
+          const dynRotY = -4.5 + Math.cos(currentProgress * Math.PI * 3) * 4.5;
+          const dynScale = 1.0 - Math.abs(Math.sin(currentProgress * Math.PI * 3)) * 0.025;
+          scrollyScene.style.transform = `rotateX(${dynRotX.toFixed(2)}deg) rotateY(${dynRotY.toFixed(2)}deg) scale(${dynScale.toFixed(3)})`;
         } else {
-          const scale = 0.56;
-          const rotX = 36 + separation * 6;  // 36deg -> 42deg
-          const rotZ = -12 - separation * 4; // -12deg -> -16deg
-          modelStack.style.transform = `scale(${scale}) rotateX(${rotX}deg) rotateZ(${rotZ}deg)`;
+          const dynRotX = 2.5 + Math.sin(currentProgress * Math.PI * 3) * 1.2;
+          const dynRotY = Math.cos(currentProgress * Math.PI * 2) * 1.8;
+          scrollyScene.style.transform = `rotateX(${dynRotX.toFixed(2)}deg) rotateY(${dynRotY.toFixed(2)}deg)`;
         }
       }
 
-      layer1.style.transform = `translate3d(0, ${-separation * spreadY}px, ${separation * spreadZ}px)`;
-      layer2.style.transform = `translate3d(0, 0, 0)`;
-      layer3.style.transform = `translate3d(0, ${separation * spreadY}px, ${-separation * spreadZ}px)`;
+      // ----------------------------------------------------------------------
+      // Ritmo e Permanência das 4 Telas Reais:
+      // - Primeiros 80% de cada etapa: tela 100% nítida e focada para leitura
+      // - Últimos 20% de cada etapa: zoom-in suave + blur progressivo para revelar a próxima
+      // ----------------------------------------------------------------------
+      const baseIdx = Math.min(2, Math.floor(p));
+      const stepFraction = p >= 3 ? 0 : (p - baseIdx); // Fração dentro da etapa (0.0 a 1.0)
+      let activeIndex = baseIdx;
 
-      // Transição e sincronização dos callout cards
-      if (!isMobile) {
-        // Desktop: opacidade de 0 a 1 entre 15% e 85% do progresso
-        let calloutOpacity = 0;
-        if (currentProgress < 0.15) {
-          calloutOpacity = 0;
-        } else if (currentProgress >= 0.15 && currentProgress <= 0.40) {
-          calloutOpacity = (currentProgress - 0.15) / 0.25;
-        } else if (currentProgress > 0.40 && currentProgress <= 0.85) {
-          calloutOpacity = 1;
-        } else {
-          calloutOpacity = Math.max(0, 1 - (currentProgress - 0.85) / 0.12);
-        }
+      if (p >= 3) {
+        // Estágio final: Tela 4 (índice 3) 100% focada e em repouso
+        activeIndex = 3;
+        screenFrames.forEach((frame, idx) => {
+          if (idx === 3) {
+            frame.style.display = 'flex';
+            frame.style.opacity = '1';
+            frame.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            frame.style.filter = 'blur(0px)';
+            frame.style.zIndex = '10';
+            frame.classList.add('active');
+          } else {
+            frame.style.display = 'none';
+            frame.style.opacity = '0';
+            frame.classList.remove('active');
+          }
+        });
 
-        if (callout1) callout1.style.opacity = calloutOpacity;
-        if (callout2) callout2.style.opacity = calloutOpacity;
-        if (callout3) callout3.style.opacity = calloutOpacity;
+        captionCards.forEach((card, idx) => {
+          if (idx === 3) {
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+            card.classList.add('active');
+          } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+            card.classList.remove('active');
+          }
+        });
+
+      } else if (stepFraction < 0.80) {
+        // PRIMEIROS 80%: Tela baseIdx permanece 100% NÍTIDA, focada e sem distorção
+        activeIndex = baseIdx;
+
+        screenFrames.forEach((frame, idx) => {
+          if (idx === baseIdx) {
+            frame.style.display = 'flex';
+            frame.style.opacity = '1';
+            frame.style.transform = 'translate3d(0, 0, 0) scale(1)';
+            frame.style.filter = 'blur(0px)';
+            frame.style.zIndex = '10';
+            frame.classList.add('active');
+          } else {
+            frame.style.display = 'none';
+            frame.style.opacity = '0';
+            frame.classList.remove('active');
+          }
+        });
+
+        captionCards.forEach((card, idx) => {
+          if (idx === baseIdx) {
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+            card.classList.add('active');
+          } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+            card.classList.remove('active');
+          }
+        });
+
       } else {
-        // No celular: exibição sincronizada por fases com destaque claro e uniforme de cada camada
-        let op1 = 0, op2 = 0, op3 = 0;
-        if (currentProgress >= 0.15 && currentProgress < 0.45) {
-          op1 = Math.min(1, (currentProgress - 0.15) / 0.10);
-          if (currentProgress > 0.38) op1 = Math.max(0, (0.45 - currentProgress) / 0.07);
-        } else if (currentProgress >= 0.45 && currentProgress < 0.72) {
-          op2 = Math.min(1, (currentProgress - 0.45) / 0.10);
-          if (currentProgress > 0.65) op2 = Math.max(0, (0.72 - currentProgress) / 0.07);
-        } else if (currentProgress >= 0.72 && currentProgress <= 0.96) {
-          op3 = Math.min(1, (currentProgress - 0.72) / 0.10);
-          if (currentProgress > 0.88) op3 = Math.max(0, (0.96 - currentProgress) / 0.08);
+        // ÚLTIMOS 20%: Janela de transição cinematográfica entre baseIdx e baseIdx + 1
+        const t = (stepFraction - 0.80) / 0.20; // 0.0 a 1.0 durante os 20% finais
+        const smoothT = t * t * (3 - 2 * t);   // Curva Smoothstep suave
+        const nextIdx = baseIdx + 1;
+        activeIndex = smoothT >= 0.5 ? nextIdx : baseIdx;
+
+        screenFrames.forEach((frame, idx) => {
+          if (idx === baseIdx) {
+            // Tela atual saindo: zoom-in suave + blur progressivo + fade-out
+            const scale = 1.0 + smoothT * 0.22;
+            const blur = smoothT * 16;
+            const opacity = Math.max(0, 1 - smoothT * 1.15);
+            const translateZ = smoothT * 75;
+
+            frame.style.display = opacity <= 0.001 ? 'none' : 'flex';
+            frame.style.opacity = opacity.toFixed(3);
+            frame.style.transform = `translate3d(0, 0, ${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+            frame.style.filter = `blur(${blur.toFixed(1)}px)`;
+            frame.style.zIndex = '10';
+            frame.classList.toggle('active', smoothT < 0.5);
+
+          } else if (idx === nextIdx) {
+            // Próxima tela entrando: foco progressivo + escala vindo de 0.90 para 1.0
+            const scale = 0.90 + smoothT * 0.10;
+            const blur = (1 - smoothT) * 14;
+            const opacity = Math.min(1, smoothT * 1.15);
+            const translateZ = (smoothT - 1) * 45;
+
+            frame.style.display = opacity <= 0.001 ? 'none' : 'flex';
+            frame.style.opacity = opacity.toFixed(3);
+            frame.style.transform = `translate3d(0, 0, ${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+            frame.style.filter = `blur(${blur.toFixed(1)}px)`;
+            frame.style.zIndex = '11';
+            frame.classList.toggle('active', smoothT >= 0.5);
+
+          } else {
+            frame.style.display = 'none';
+            frame.style.opacity = '0';
+            frame.classList.remove('active');
+          }
+        });
+
+        // Transição suave correspondente nos cards de legenda
+        captionCards.forEach((card, idx) => {
+          if (idx === baseIdx) {
+            const cardOpacity = Math.max(0, 1 - smoothT * 1.25);
+            const cardY = -smoothT * 16;
+            const cardScale = 1 - smoothT * 0.03;
+            card.style.display = cardOpacity <= 0.001 ? 'none' : 'flex';
+            card.style.opacity = cardOpacity.toFixed(3);
+            card.style.transform = `translateY(${cardY.toFixed(1)}px) scale(${cardScale.toFixed(3)})`;
+            card.classList.toggle('active', smoothT < 0.5);
+
+          } else if (idx === nextIdx) {
+            const cardOpacity = Math.min(1, smoothT * 1.25);
+            const cardY = (1 - smoothT) * 16;
+            const cardScale = 0.97 + smoothT * 0.03;
+            card.style.display = cardOpacity <= 0.001 ? 'none' : 'flex';
+            card.style.opacity = cardOpacity.toFixed(3);
+            card.style.transform = `translateY(${cardY.toFixed(1)}px) scale(${cardScale.toFixed(3)})`;
+            card.classList.toggle('active', smoothT >= 0.5);
+
+          } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+            card.classList.remove('active');
+          }
+        });
+      }
+
+      // Atualização dos Stepper Buttons
+      stepButtons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === activeIndex);
+      });
+
+      // Atualização do Indicador de Status Dinâmico
+      if (statusText && statusLabels[activeIndex]) {
+        statusText.textContent = statusLabels[activeIndex];
+      }
+
+      // Linha de progresso visual contínua
+      if (progressFill) {
+        progressFill.style.width = `${(currentProgress * 100).toFixed(1)}%`;
+      }
+
+      // Dispara a contagem progressiva dos números da legenda recém-ativada
+      if (activeIndex !== currentActiveIndex) {
+        currentActiveIndex = activeIndex;
+        const activeCard = captionCards[activeIndex];
+        if (activeCard) {
+          const counters = activeCard.querySelectorAll('[data-counter]');
+          counters.forEach(c => animateCountUp(c));
         }
-
-        if (callout1) callout1.style.opacity = op1;
-        if (callout2) callout2.style.opacity = op2;
-        if (callout3) callout3.style.opacity = op3;
       }
 
-      if (explodedStatus) {
-        explodedStatus.textContent = statusLabel;
-      }
-
-      if (delta >= 0.0001) {
+      if (delta >= 0.00005) {
         requestAnimationFrame(renderLoop);
       } else {
         isLoopRunning = false;
@@ -194,6 +374,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', updateTargetProgress, { passive: true });
     window.addEventListener('resize', updateTargetProgress, { passive: true });
+
+    // Navegação interativa com inércia suave ao clicar nos botões do Stepper
+    stepButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = parseInt(btn.getAttribute('data-step') || '0', 10);
+        const rect = explodedTrack.getBoundingClientRect();
+        const scrollable = rect.height - window.innerHeight;
+        // Posiciona no centro da fase de permanência nítida (40% dentro da etapa)
+        const targetP = step === 3 ? 3.0 : (step + 0.40);
+        const targetScroll = window.scrollY + rect.top + (targetP / 3.0) * scrollable;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      });
+    });
 
     // Chamada inicial
     updateTargetProgress();

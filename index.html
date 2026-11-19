@@ -43,6 +43,12 @@
   <!-- Folha de Estilos Modular & Otimizada -->
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Pré-carregamento das 4 Telas Reais do Scrollytelling 3D em WebP -->
+  <link rel="preload" as="image" href="assets/screens/1-pdv.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/screens/2-estoque.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/screens/3-compras.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/screens/4-dashboard.webp" type="image/webp">
+
   <!-- Dados Estruturados Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
@@ -186,94 +192,254 @@
       </div>
 
       <div class="hero-pills-row">
-        <span class="hero-pill-badge"><span class="dot"></span> Venda em &lt; 10 segundos</span>
+        <span class="hero-pill-badge"><span class="dot"></span> Venda em <span data-counter="10" data-format="seconds">&lt; 10 segundos</span></span>
         <span class="hero-pill-badge"><span class="dot"></span> Delivery sem comissão abusiva</span>
-        <span class="hero-pill-badge"><span class="dot"></span> 100% em dia com o DAS</span>
+        <span class="hero-pill-badge"><span class="dot"></span> <span data-counter="100" data-format="percent">100%</span> em dia com o DAS</span>
       </div>
     </div>
 
-    <!-- Track da Animação Vista Explodida (Scrollytelling) -->
-    <div class="exploded-track" id="exploded-view-track">
-      <div class="exploded-sticky-stage">
-        <!-- Indicador de Status do Modelo -->
-        <div class="exploded-stage-indicator" id="exploded-status-indicator">
-          <span id="exploded-status-text">✦ Terminal Integrado: Pronto para Vender</span>
-        </div>
-
-        <div class="exploded-viewport">
-          <div class="exploded-model-stack" id="exploded-model">
-
-            <!-- Placa Superior: Keycaps / Interface do Usuário (Sobe no Scroll) -->
-            <div class="exploded-layer layer-keycaps" id="exploded-layer-1">
-              <div class="layer-header-screen">
-                <span class="screen-live-label">GESTOR MEI &bull; PDV ATIVO</span>
-                <span class="screen-total-readout">R$ 48,50 [PIX]</span>
-              </div>
-              <div class="layer-keycaps-grid">
-                <div class="keycap key-accent">F2 Venda</div>
-                <div class="keycap">F3 Buscar</div>
-                <div class="keycap">F4 Pagam.</div>
-                <div class="keycap key-green">ENTER Concluir &check;</div>
-                <div class="keycap">ESC Sair</div>
-                <div class="keycap">Taxa 0%</div>
-                <div class="keycap">Cod. Barras</div>
-                <div class="keycap">Marmita P</div>
-                <div class="keycap">Marmita M</div>
-                <div class="keycap">Bebida</div>
-                <div class="keycap">Troco R$</div>
-              </div>
-            </div>
-
-            <!-- Placa Central: Switches & Matriz de Segurança (Permanece Estável) -->
-            <div class="exploded-layer layer-switches" id="exploded-layer-2">
-              <div class="matrix-grid-pattern">
-                <div class="switch-node">Perfis</div>
-                <div class="switch-node">PIN</div>
-                <div class="switch-node">Caixa</div>
-                <div class="switch-node">DAS</div>
-                <div class="switch-node">XML</div>
-                <div class="switch-node">Auditoria</div>
-                <div class="switch-node">Estoque</div>
-                <div class="switch-node">NF-e</div>
-              </div>
-            </div>
-
-            <!-- Placa Inferior: Chassi & Placa-Mãe (Desce no Scroll) -->
-            <div class="exploded-layer layer-chassis" id="exploded-layer-3">
-              <div class="chassis-circuits">
-                <div class="core-chip">
-                  <span class="core-chip-logo">🛡️</span>
-                  <span class="core-chip-name">DADOS SEGUROS</span>
-                </div>
-                <div class="bus-lines">
-                  <div class="bus-line"></div>
-                  <div class="bus-line"></div>
-                  <div class="bus-line"></div>
-                </div>
-              </div>
-            </div>
-
+    <!-- Track da Apresentação Visual Cinematográfica Scrollytelling 3D -->
+    <div class="exploded-track scrolly-3d-track" id="exploded-view-track">
+      <div class="exploded-sticky-stage scrolly-sticky-stage">
+        
+        <!-- Barra Superior de Controle e Progresso do Scrollytelling -->
+        <div class="scrolly-topbar">
+          <div class="scrolly-stepper" id="scrolly-stepper">
+            <button class="scrolly-step-btn active" data-step="0" type="button">
+              <span class="step-num">01</span>
+              <span class="step-label">PDV Balcão</span>
+            </button>
+            <button class="scrolly-step-btn" data-step="1" type="button">
+              <span class="step-num">02</span>
+              <span class="step-label">Estoque &amp; Alertas</span>
+            </button>
+            <button class="scrolly-step-btn" data-step="2" type="button">
+              <span class="step-num">03</span>
+              <span class="step-label">Compras &amp; XML</span>
+            </button>
+            <button class="scrolly-step-btn" data-step="3" type="button">
+              <span class="step-num">04</span>
+              <span class="step-label">Dashboard &amp; Teto</span>
+            </button>
           </div>
 
-          <!-- Callouts Explicativos Flutuantes (Colunas Laterais Externas) -->
-          <div class="callout-card card-top" id="callout-1">
-            <span class="callout-tag tag-blue">Rápido no balcão &bull; Interface Ágil</span>
-            <h4 class="callout-title">PDV &amp; Balcão em Menos de 10s</h4>
-            <p class="callout-desc">Operação intuitiva por atalhos ou código de barras. Seus atendentes vendem sem travar a fila.</p>
+          <!-- Indicador de Status Dinâmico -->
+          <div class="exploded-stage-indicator scrolly-status-indicator" id="exploded-status-indicator">
+            <span class="status-pulse-dot"></span>
+            <span id="exploded-status-text">✦ PDV Balcão: Vendas em Menos de 10 Segundos</span>
           </div>
 
-          <div class="callout-card card-mid callout-layer-2" id="callout-2">
-            <span class="callout-tag tag-green">Seguro contra desvios &bull; Fechamento Cego</span>
-            <h4 class="callout-title">Fechamento Cego &amp; Segurança</h4>
-            <p class="callout-desc">O operador conta o caixa sem ver o saldo prévio. Permissões restritas por perfil (Dono, Operador, Consultor).</p>
-          </div>
-
-          <div class="callout-card card-bot" id="callout-3">
-            <span class="callout-tag tag-amber">Seus dados protegidos &bull; Nuvem Segura</span>
-            <h4 class="callout-title">Nuvem &amp; Suporte LPTI Tech</h4>
-            <p class="callout-desc">Meta de disponibilidade de 99,9%, backup automático, suporte humanizado de Betim/MG e ecossistema seguro.</p>
+          <!-- Linha de Progresso Visual de Rolagem -->
+          <div class="scrolly-progress-track">
+            <div class="scrolly-progress-fill" id="scrolly-progress-fill"></div>
           </div>
         </div>
+
+        <!-- Palco Central com Experiência 3D e HUD de Legendas Sincronizadas -->
+        <div class="scrolly-stage-body">
+          
+          <!-- Viewport 3D das Telas Reais em Glassmorphism Escuro -->
+          <div class="exploded-viewport scrolly-viewport" id="scrolly-viewport">
+            <div class="scrolly-3d-scene" id="scrolly-scene">
+              
+              <!-- Tela 1: PDV Balcão em < 10s -->
+              <div class="scrolly-screen-frame active" id="screen-frame-0" data-index="0">
+                <div class="glass-window-header">
+                  <div class="window-controls">
+                    <span class="win-dot dot-close"></span>
+                    <span class="win-dot dot-min"></span>
+                    <span class="win-dot dot-max"></span>
+                  </div>
+                  <div class="window-title">
+                    <span class="win-icon">⚡</span>
+                    <span>GESTOR MEI &bull; PDV BALCÃO [F2 / F4]</span>
+                  </div>
+                  <div class="window-badge badge-pulse">ONLINE &bull; &lt; 10s</div>
+                </div>
+                <div class="glass-screen-body">
+                  <img src="assets/screens/1-pdv.webp" alt="Captura de tela real do PDV Balcão do Gestor MEI" class="screen-img" loading="eager" width="1901" height="949">
+                  <div class="glass-screen-glare"></div>
+                </div>
+              </div>
+
+              <!-- Tela 2: Controle de Estoque e Alertas -->
+              <div class="scrolly-screen-frame" id="screen-frame-1" data-index="1">
+                <div class="glass-window-header">
+                  <div class="window-controls">
+                    <span class="win-dot dot-close"></span>
+                    <span class="win-dot dot-min"></span>
+                    <span class="win-dot dot-max"></span>
+                  </div>
+                  <div class="window-title">
+                    <span class="win-icon">📦</span>
+                    <span>GESTOR MEI &bull; CONTROLE DE ESTOQUE &amp; INSUMOS</span>
+                  </div>
+                  <div class="window-badge badge-amber">ALERTAS ATIVOS</div>
+                </div>
+                <div class="glass-screen-body">
+                  <img src="assets/screens/2-estoque.webp" alt="Captura de tela real do Controle de Estoque do Gestor MEI" class="screen-img" loading="lazy" width="1898" height="951">
+                  <div class="glass-screen-glare"></div>
+                </div>
+              </div>
+
+              <!-- Tela 3: Compras e Importação NF-e XML -->
+              <div class="scrolly-screen-frame" id="screen-frame-2" data-index="2">
+                <div class="glass-window-header">
+                  <div class="window-controls">
+                    <span class="win-dot dot-close"></span>
+                    <span class="win-dot dot-min"></span>
+                    <span class="win-dot dot-max"></span>
+                  </div>
+                  <div class="window-title">
+                    <span class="win-icon">📥</span>
+                    <span>GESTOR MEI &bull; COMPRAS &amp; ENTRADA NF-e XML</span>
+                  </div>
+                  <div class="window-badge badge-blue">XML AUTOMATIZADO</div>
+                </div>
+                <div class="glass-screen-body">
+                  <img src="assets/screens/3-compras.webp" alt="Captura de tela real do Módulo de Compras do Gestor MEI" class="screen-img" loading="lazy" width="1915" height="944">
+                  <div class="glass-screen-glare"></div>
+                </div>
+              </div>
+
+              <!-- Tela 4: Dashboard e Régua do Teto MEI -->
+              <div class="scrolly-screen-frame" id="screen-frame-3" data-index="3">
+                <div class="glass-window-header">
+                  <div class="window-controls">
+                    <span class="win-dot dot-close"></span>
+                    <span class="win-dot dot-min"></span>
+                    <span class="win-dot dot-max"></span>
+                  </div>
+                  <div class="window-title">
+                    <span class="win-icon">🛡️</span>
+                    <span>GESTOR MEI &bull; DASHBOARD &amp; BLINDAGEM FISCAL</span>
+                  </div>
+                  <div class="window-badge badge-green">TETO MEI BLINDADO</div>
+                </div>
+                <div class="glass-screen-body">
+                  <img src="assets/screens/4-dashboard.webp" alt="Captura de tela real do Dashboard Estratégico do Gestor MEI" class="screen-img" loading="lazy" width="1901" height="947">
+                  <div class="glass-screen-glare"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- HUD Sincronizado de Legendas e Destaques (Scrollytelling HUD) -->
+          <div class="scrolly-captions-container" id="scrolly-captions">
+            
+            <!-- Legenda 1: PDV -->
+            <div class="scrolly-caption-card active" id="scrolly-caption-0" data-index="0">
+              <div class="caption-header">
+                <span class="caption-badge tag-blue">⚡ ATO 1 &bull; VELOCIDADE NO CAIXA</span>
+                <span class="caption-step-tag">01 / 04</span>
+              </div>
+              <h3 class="caption-title">PDV em &lt; 10s: Venda sem Filas</h3>
+              <p class="caption-desc">
+                Interface ergonômica com teclado de alta produtividade (F2, F4) ou leitor de código de barras. Seu operador fecha a venda antes de travar a fila.
+              </p>
+              <ul class="caption-features-list">
+                <li><span class="feat-icon">⚡</span> <span>Venda rápida sem telas pesadas ou esperas.</span></li>
+                <li><span class="feat-icon">🔒</span> <span>Fechamento Cego de Caixa &amp; PIN Gerencial para descontos.</span></li>
+                <li><span class="feat-icon">💳</span> <span>Pagamento múltiplo (Pix, Cartão e Dinheiro na mesma venda).</span></li>
+              </ul>
+              <div class="caption-metrics-row">
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="10" data-format="seconds">&lt; 10s</span>
+                  <span class="metric-lbl">por atendimento</span>
+                </div>
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="0" data-format="percent">0%</span>
+                  <span class="metric-lbl">taxa no Pix direto</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legenda 2: Estoque -->
+            <div class="scrolly-caption-card" id="scrolly-caption-1" data-index="1">
+              <div class="caption-header">
+                <span class="caption-badge tag-amber">📦 ATO 2 &bull; GESTÃO DE INSUMOS</span>
+                <span class="caption-step-tag">02 / 04</span>
+              </div>
+              <h3 class="caption-title">Controle de Estoque e Alertas</h3>
+              <p class="caption-desc">
+                Rastreio inteligente de insumos e produtos prontos com baixa automática simultânea no balcão e no delivery, sem retrabalho.
+              </p>
+              <ul class="caption-features-list">
+                <li><span class="feat-icon">⚠️</span> <span>Notificação visual imediata ao atingir estoque mínimo.</span></li>
+                <li><span class="feat-icon">📉</span> <span>Baixa integrada automática em cada comanda finalizada.</span></li>
+                <li><span class="feat-icon">🥩</span> <span>Gestão precisa de carnes, embalagens, queijos e bebidas.</span></li>
+              </ul>
+              <div class="caption-metrics-row">
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="100" data-format="percent">100%</span>
+                  <span class="metric-lbl">precisão de saldo</span>
+                </div>
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="0">0</span>
+                  <span class="metric-lbl">falhas no pico</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legenda 3: Compras -->
+            <div class="scrolly-caption-card" id="scrolly-caption-2" data-index="2">
+              <div class="caption-header">
+                <span class="caption-badge tag-purple">📥 ATO 3 &bull; ENTRADA DE NOTAS</span>
+                <span class="caption-step-tag">03 / 04</span>
+              </div>
+              <h3 class="caption-title">Compras e Importação NF-e XML</h3>
+              <p class="caption-desc">
+                Importe faturas e notas de distribuidores em segundos sem digitar item por item. O sistema recalcula o Custo Médio Ponderado (CMP) na hora.
+              </p>
+              <ul class="caption-features-list">
+                <li><span class="feat-icon">📄</span> <span>Importação direta de arquivo XML emitido pelo fornecedor.</span></li>
+                <li><span class="feat-icon">📊</span> <span>Recálculo automático do CMP e margens de lucro dos pratos.</span></li>
+                <li><span class="feat-icon">📸</span> <span>Entrada manual ágil com foto de comprovante para feira/mercado.</span></li>
+              </ul>
+              <div class="caption-metrics-row">
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="1">1 Clique</span>
+                  <span class="metric-lbl">leitura do XML</span>
+                </div>
+                <div class="caption-metric-pill">
+                  <span class="metric-val">CMV Real</span>
+                  <span class="metric-lbl">sem adivinhação</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legenda 4: Dashboard & Teto MEI -->
+            <div class="scrolly-caption-card" id="scrolly-caption-3" data-index="3">
+              <div class="caption-header">
+                <span class="caption-badge tag-green">🛡️ ATO 4 &bull; BLINDAGEM FISCAL</span>
+                <span class="caption-step-tag">04 / 04</span>
+              </div>
+              <h3 class="caption-title">Dashboard e Régua do Teto MEI</h3>
+              <p class="caption-desc">
+                Descubra o lucro líquido verdadeiro com o indicador "Quanto Sobrou" e acompanhe em tempo real a distância para o teto de R$ 81.000 do MEI.
+              </p>
+              <ul class="caption-features-list">
+                <li><span class="feat-icon">💰</span> <span>Margem limpa deduzindo compras, despesas e CMV.</span></li>
+                <li><span class="feat-icon">📏</span> <span>Régua visual preventiva do faturamento acumulado no ano.</span></li>
+                <li><span class="feat-icon">🔔</span> <span>Alerta do DAS no dia 20 com chave Pix pronta para pagamento.</span></li>
+              </ul>
+              <div class="caption-metrics-row">
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="81000" data-format="currency">R$ 81.000</span>
+                  <span class="metric-lbl">teto monitorado</span>
+                </div>
+                <div class="caption-metric-pill">
+                  <span class="metric-val" data-counter="99.9" data-format="percent">99,9%</span>
+                  <span class="metric-lbl">tranquilidade fiscal</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
     </div>
   </section>
@@ -404,7 +570,7 @@
             <div class="pdv-totals-box">
               <div>
                 <span style="font-size: 12px; color: #90CAF9; display: block;">SUBTOTAL</span>
-                <span class="pdv-total-val">R$ 68,00</span>
+                <span class="pdv-total-val" data-counter="68" data-format="currency">R$ 68,00</span>
               </div>
               <div style="text-align: right;">
                 <span style="font-size: 11px; color: #81C784; display: block;">FORMA DE PAGAMENTO</span>
@@ -440,7 +606,7 @@
         <div class="kanban-col">
           <div class="kanban-col-header">
             <span class="kanban-col-title">1. Recebidos</span>
-            <span class="kanban-badge badge-yellow">3 pedidos</span>
+            <span class="kanban-badge badge-yellow"><span data-counter="3">3</span> pedidos</span>
           </div>
           <div class="kanban-cards-stack">
             <div class="kanban-item-card">
@@ -466,7 +632,7 @@
         <div class="kanban-col">
           <div class="kanban-col-header">
             <span class="kanban-col-title">2. Na Cozinha</span>
-            <span class="kanban-badge badge-blue">2 pedidos</span>
+            <span class="kanban-badge badge-blue"><span data-counter="2">2</span> pedidos</span>
           </div>
           <div class="kanban-cards-stack">
             <div class="kanban-item-card">
@@ -484,7 +650,7 @@
         <div class="kanban-col">
           <div class="kanban-col-header">
             <span class="kanban-col-title">3. Na Rota</span>
-            <span class="kanban-badge badge-purple">4 pedidos</span>
+            <span class="kanban-badge badge-purple"><span data-counter="4">4</span> pedidos</span>
           </div>
           <div class="kanban-cards-stack">
             <div class="kanban-item-card">
@@ -502,7 +668,7 @@
         <div class="kanban-col">
           <div class="kanban-col-header">
             <span class="kanban-col-title">4. Entregues</span>
-            <span class="kanban-badge badge-green">18 hoje</span>
+            <span class="kanban-badge badge-green"><span data-counter="18">18</span> hoje</span>
           </div>
           <div class="kanban-cards-stack">
             <div class="kanban-item-card" style="opacity: 0.85;">
@@ -572,7 +738,7 @@
         <div class="fiscal-meter-box">
           <div class="meter-header">
             <span class="meter-title">Faturamento Acumulado no Ano (2026)</span>
-            <span class="meter-value">R$ 54.320,00</span>
+            <span class="meter-value" data-counter="54320" data-format="currency">R$ 54.320,00</span>
           </div>
 
           <div class="meter-bar-track">
@@ -580,15 +746,15 @@
           </div>
 
           <div class="meter-footer-note">
-            <span>67% do Limite Anual Utilizado</span>
-            <span>Teto MEI Oficial: R$ 81.000,00 &bull; Saldo Restante: R$ 26.680,00</span>
+            <span><strong data-counter="67" data-format="percent">67%</strong> do Limite Anual Utilizado</span>
+            <span>Teto MEI Oficial: <strong data-counter="81000" data-format="currency">R$ 81.000,00</strong> &bull; Saldo Restante: <strong data-counter="26680" data-format="currency">R$ 26.680,00</strong></span>
           </div>
         </div>
 
         <!-- Box de Ação do DAS -->
         <div class="das-action-callout">
           <div class="das-callout-text">
-            <strong>Guia DAS deste Mês: Vencimento Dia 20 &bull; R$ 82,05 (exemplo: comércio &bull; valor 2026)</strong>
+            <strong>Guia DAS deste Mês: Vencimento Dia 20 &bull; <span data-counter="82.05" data-format="currency">R$ 82,05</span> (exemplo: comércio &bull; valor 2026)</strong>
             <span>Status: Pendente &bull; Evite multas e garanta sua aposentadoria e auxílios do INSS.</span>
           </div>
           <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20receber%20alertas%20e%20apoio%20para%20manter%20meu%20DAS%20MEI%20em%20dia." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
@@ -676,7 +842,7 @@
             <p class="plan-subtitle">Para quem já cuida da rotina fiscal e quer controle total no balcão.</p>
             <div class="plan-price">
               <span class="price-currency">R$</span>
-              <span class="price-val">49</span>
+              <span class="price-val" data-counter="49">49</span>
               <span class="price-period">/mês</span>
             </div>
           </div>
@@ -710,7 +876,7 @@
             <p class="plan-subtitle">Para quem quer vender tranquilo enquanto a parte burocrática do MEI fica em dia.</p>
             <div class="plan-price">
               <span class="price-currency">R$</span>
-              <span class="price-val">149</span>
+              <span class="price-val" data-counter="149">149</span>
               <span class="price-period">/mês</span>
             </div>
           </div>
@@ -741,7 +907,7 @@
         <div class="pilot-content">
           <h4>Condição Especial de Lançamento &bull; Clientes Piloto</h4>
           <p>
-            Implantação assistida (cadastro inicial de produtos e treinamento prático): taxa única de R$ 150 a R$ 250 — <strong class="pilot-highlight">GRÁTIS para os primeiros clientes piloto</strong>.
+            Implantação assistida (cadastro inicial de produtos e treinamento prático): taxa única de R$ <span data-counter="150">150</span> a R$ <span data-counter="250">250</span> — <strong class="pilot-highlight">GRÁTIS para os primeiros clientes piloto</strong>.
           </p>
         </div>
         <div class="pilot-action">
