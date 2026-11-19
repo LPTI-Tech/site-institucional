@@ -29,11 +29,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ----------------------------------------------------------------------------
-  // 2. Elevação da Navbar ao Rolar a Página
+  // 2. Elevação da Navbar ao Rolar a Página & ScrollSpy Ativo
   // ----------------------------------------------------------------------------
   const navbar = document.getElementById('navbar');
-  let ticking = false;
+  const sectionsToSpy = [
+    { id: 'hero', link: document.querySelector('.nav-link[href="#hero"]') },
+    { id: 'problema', link: document.querySelector('.nav-link[href="#problema"]') },
+    { id: 'planos', link: document.querySelector('.nav-link[href="#planos"]') },
+    { id: 'lptitech', link: document.querySelector('.nav-link[href="#lptitech"]') }
+  ];
 
+  const updateScrollSpy = () => {
+    const scrollPos = window.scrollY + 180;
+    let currentSectionId = '';
+
+    sectionsToSpy.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.offsetTop;
+        const height = el.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          currentSectionId = id;
+        }
+      }
+    });
+
+    sectionsToSpy.forEach(({ id, link }) => {
+      if (link) {
+        link.classList.toggle('active', id === currentSectionId);
+      }
+    });
+  };
+
+  let ticking = false;
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
@@ -42,11 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           navbar.classList.remove('scrolled');
         }
+        updateScrollSpy();
         ticking = false;
       });
       ticking = true;
     }
   }, { passive: true });
+  updateScrollSpy();
 
   // ----------------------------------------------------------------------------
   // Função Utilitária: Contagem Progressiva de Números (Count-Up)
@@ -119,15 +149,212 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ----------------------------------------------------------------------------
-  // 3. Scrollytelling 3D Cinematográfico das 4 Telas Reais com LERP & Perspectiva
+  // 3. Hero Cinema: Scrollytelling Full-Bleed em Canvas (96 Frames WebP)
   // ----------------------------------------------------------------------------
-  const explodedTrack = document.getElementById('exploded-view-track');
+  const heroCinemaTrack = document.getElementById('hero');
+  const cinemaCanvas = document.getElementById('hero-cinema-canvas');
+  const cinemaProgressBar = document.getElementById('cinema-progress-bar');
+  const cinemaBlocks = document.querySelectorAll('.cinema-text-block');
+  const cinemaCtx = cinemaCanvas ? cinemaCanvas.getContext('2d') : null;
+
+  const TOTAL_CINEMA_FRAMES = 96;
+  const cinemaFrames = [];
+  let loadedCinemaFramesCount = 0;
+  let firstCinemaFrameRendered = false;
+  let currentCinemaFrameIndex = 0;
+  let targetCinemaProgress = 0;
+  let currentCinemaProgress = 0;
+  let isCinemaLoopRunning = false;
+
+  // Função para desenhar a imagem cobrindo todo o canvas (object-fit: cover)
+  const drawCinemaCover = (ctx, img, canvasWidth, canvasHeight) => {
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = canvasWidth / canvasHeight;
+    let renderW, renderH, dx, dy;
+
+    if (canvasRatio > imgRatio) {
+      renderW = canvasWidth;
+      renderH = canvasWidth / imgRatio;
+      dx = 0;
+      dy = (canvasHeight - renderH) / 2;
+    } else {
+      renderH = canvasHeight;
+      renderW = canvasHeight * imgRatio;
+      dx = (canvasWidth - renderW) / 2;
+      dy = 0;
+    }
+
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.drawImage(img, dx, dy, renderW, renderH);
+  };
+
+  const renderCinemaFrame = (frameIndex) => {
+    if (!cinemaCtx || !cinemaCanvas) return;
+    const img = cinemaFrames[frameIndex];
+    if (img && img.complete && img.naturalWidth > 0) {
+      drawCinemaCover(cinemaCtx, img, cinemaCanvas.width, cinemaCanvas.height);
+    } else {
+      // Se o frame exato ainda não baixou, usa o frame mais próximo já carregado
+      for (let offset = 1; offset < TOTAL_CINEMA_FRAMES; offset++) {
+        const prev = cinemaFrames[Math.max(0, frameIndex - offset)];
+        if (prev && prev.complete && prev.naturalWidth > 0) {
+          drawCinemaCover(cinemaCtx, prev, cinemaCanvas.width, cinemaCanvas.height);
+          break;
+        }
+      }
+    }
+  };
+
+  const resizeCinemaCanvas = () => {
+    if (!cinemaCanvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cinemaCanvas.width = window.innerWidth * dpr;
+    cinemaCanvas.height = window.innerHeight * dpr;
+    renderCinemaFrame(currentCinemaFrameIndex);
+  };
+
+  // Pré-carregamento dos 96 frames WebP
+  for (let i = 1; i <= TOTAL_CINEMA_FRAMES; i++) {
+    const pad = String(i).padStart(4, '0');
+    const img = new Image();
+    img.src = `assets/frames/frame_${pad}.webp`;
+    img.onload = () => {
+      loadedCinemaFramesCount++;
+      if (i === 1 && !firstCinemaFrameRendered) {
+        firstCinemaFrameRendered = true;
+        renderCinemaFrame(0);
+      }
+    };
+    cinemaFrames.push(img);
+  }
+
+  // Atualização dos 4 Blocos de Texto Monumentais com Zoom Suave e Blur
+  const updateCinemaTextBlocks = (p) => {
+    const configs = [
+      { start: 0.00, end: 0.22, exitStart: 0.22, exitEnd: 0.28, enterStart: -0.10, enterEnd: 0.00 },
+      { start: 0.28, end: 0.47, exitStart: 0.47, exitEnd: 0.53, enterStart: 0.22, enterEnd: 0.28 },
+      { start: 0.53, end: 0.72, exitStart: 0.72, exitEnd: 0.78, enterStart: 0.47, enterEnd: 0.53 },
+      { start: 0.78, end: 1.00, exitStart: 1.10, exitEnd: 1.20, enterStart: 0.72, enterEnd: 0.78 }
+    ];
+
+    cinemaBlocks.forEach((block, idx) => {
+      const cfg = configs[idx];
+      let opacity = 0;
+      let scale = 0.94;
+      let blur = 14;
+      let translateY = 20;
+
+      if (p >= cfg.start && p <= cfg.end) {
+        // Platô de leitura 100% nítido
+        opacity = 1;
+        scale = 1.0;
+        blur = 0;
+        translateY = 0;
+      } else if (p > cfg.enterStart && p < cfg.start) {
+        // Entrando no foco
+        const t = (p - cfg.enterStart) / (cfg.start - cfg.enterStart);
+        const smoothT = t * t * (3 - 2 * t);
+        opacity = smoothT;
+        scale = 0.94 + smoothT * 0.06;
+        blur = (1 - smoothT) * 14;
+        translateY = (1 - smoothT) * 20;
+      } else if (p > cfg.end && p < cfg.exitEnd) {
+        // Desfocando e saindo com zoom
+        const t = (p - cfg.end) / (cfg.exitEnd - cfg.end);
+        const smoothT = t * t * (3 - 2 * t);
+        opacity = Math.max(0, 1 - smoothT);
+        scale = 1.0 + smoothT * 0.08;
+        blur = smoothT * 14;
+        translateY = -smoothT * 20;
+      } else {
+        opacity = 0;
+        blur = 14;
+        scale = p < cfg.start ? 0.94 : 1.08;
+        translateY = p < cfg.start ? 20 : -20;
+      }
+
+      if (opacity <= 0.001) {
+        block.style.display = 'none';
+        block.style.opacity = '0';
+        block.classList.remove('active');
+      } else {
+        block.style.display = 'flex';
+        block.style.opacity = opacity.toFixed(3);
+        block.style.transform = `scale(${scale.toFixed(3)}) translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+        block.style.filter = `blur(${blur.toFixed(1)}px)`;
+        block.classList.toggle('active', opacity >= 0.5);
+      }
+    });
+  };
+
+  const updateCinemaTargetProgress = () => {
+    if (!heroCinemaTrack) return;
+    const rect = heroCinemaTrack.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    if (scrollable <= 0) return;
+
+    const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+    targetCinemaProgress = progress;
+
+    if (!isCinemaLoopRunning) {
+      isCinemaLoopRunning = true;
+      requestAnimationFrame(cinemaRenderLoop);
+    }
+  };
+
+  const cinemaRenderLoop = () => {
+    // Inércia LERP (0.07) suave e cinematográfica
+    currentCinemaProgress += (targetCinemaProgress - currentCinemaProgress) * 0.07;
+    const delta = Math.abs(targetCinemaProgress - currentCinemaProgress);
+    if (delta < 0.0001) {
+      currentCinemaProgress = targetCinemaProgress;
+    }
+
+    // Mapeamento do frame no vídeo
+    const frameIndex = Math.min(TOTAL_CINEMA_FRAMES - 1, Math.max(0, Math.floor(currentCinemaProgress * (TOTAL_CINEMA_FRAMES - 1))));
+    if (frameIndex !== currentCinemaFrameIndex) {
+      currentCinemaFrameIndex = frameIndex;
+      renderCinemaFrame(currentCinemaFrameIndex);
+    }
+
+    // Linha de progresso superior
+    if (cinemaProgressBar) {
+      cinemaProgressBar.style.width = `${(currentCinemaProgress * 100).toFixed(1)}%`;
+    }
+
+    // Transição dos blocos de texto
+    updateCinemaTextBlocks(currentCinemaProgress);
+
+    if (delta >= 0.0001) {
+      requestAnimationFrame(cinemaRenderLoop);
+    } else {
+      isCinemaLoopRunning = false;
+    }
+  };
+
+  if (heroCinemaTrack && cinemaCanvas) {
+    window.addEventListener('scroll', updateCinemaTargetProgress, { passive: true });
+    window.addEventListener('resize', () => {
+      resizeCinemaCanvas();
+      updateCinemaTargetProgress();
+    }, { passive: true });
+
+    resizeCinemaCanvas();
+    updateCinemaTargetProgress();
+  }
+
+  // ----------------------------------------------------------------------------
+  // 4. Palco das Telas Reais em Alta Definição (telas-hd / exploded-view-track)
+  // ----------------------------------------------------------------------------
+  const explodedTrack = document.getElementById('telas-hd') || document.getElementById('exploded-view-track');
   const scrollyScene = document.getElementById('scrolly-scene');
   const screenFrames = document.querySelectorAll('.scrolly-screen-frame');
   const captionCards = document.querySelectorAll('.scrolly-caption-card');
   const stepButtons = document.querySelectorAll('.scrolly-step-btn');
   const progressFill = document.getElementById('scrolly-progress-fill');
   const statusText = document.getElementById('exploded-status-text');
+  const backlightGlow = document.getElementById('scrolly-backlight-glow');
 
   // Pré-carregamento imediato das imagens em memória (WebP otimizado)
   const screenUrls = [
@@ -348,6 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Atualização do Indicador de Status Dinâmico
       if (statusText && statusLabels[activeIndex]) {
         statusText.textContent = statusLabels[activeIndex];
+      }
+
+      // Atualização do Brilho Ambiental Difuso (Ambient Backlight Glow)
+      if (backlightGlow && activeIndex !== currentActiveIndex) {
+        backlightGlow.className = `scrolly-backlight-glow glow-step-${activeIndex}`;
       }
 
       // Linha de progresso visual contínua

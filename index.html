@@ -41,7 +41,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Folha de Estilos Modular & Otimizada -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2.2">
 
   <!-- Pré-carregamento das 4 Telas Reais do Scrollytelling 3D em WebP -->
   <link rel="preload" as="image" href="assets/screens/1-pdv.webp" type="image/webp" fetchpriority="high">
@@ -107,46 +107,22 @@
 </head>
 <body>
 
-  <!-- ================= TOPBAR INSTITUCIONAL ================= -->
-  <div class="topbar">
-    <div class="container topbar-content">
-      <div class="topbar-left">
-        <span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Betim - MG &bull; Atendimento presencial na região e remoto em todo o Brasil
-        </span>
-      </div>
-      <div class="topbar-right">
-        <a href="mailto:contato@lptitech.com.br" class="topbar-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> contato@lptitech.com.br
-        </a>
-        <a href="tel:+5531988004560" class="topbar-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> (31) 98800-4560
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= NAVBAR PRINCIPAL ================= -->
+  <!-- ================= NAVBAR PRINCIPAL MINIMALISTA & TRANSLÚCIDA ================= -->
   <header class="navbar" id="navbar">
     <div class="container navbar-container">
       <a href="#hero" class="brand-wrapper" aria-label="Gestor MEI e LPTI Tech Página Inicial">
-        <img src="assets/gestor-mei-icon.png" alt="Logo Oficial Gestor MEI" class="brand-icon" width="44" height="44">
+        <img src="assets/gestor-mei-icon.png" alt="Logo Oficial Gestor MEI" class="brand-icon" width="40" height="40">
         <div class="brand-text">
           <span class="brand-title">GESTOR MEI</span>
           <span class="brand-sub">Por LPTI Tech</span>
         </div>
       </a>
 
-      <!-- Menu Desktop -->
+      <!-- Menu Desktop Minimalista (4 Links Estratégicos) -->
       <nav class="nav-menu" id="nav-menu">
         <ul class="nav-list">
-          <li><a href="#hero" class="nav-link active">Início</a></li>
+          <li><a href="#hero" class="nav-link">O Sistema</a></li>
           <li><a href="#problema" class="nav-link">Antes x Depois</a></li>
-          <li><a href="#pdv" class="nav-link">PDV Balcão</a></li>
-          <li><a href="#delivery" class="nav-link">Delivery</a></li>
-          <li><a href="#estoque" class="nav-link">Estoque</a></li>
-          <li><a href="#fiscal" class="nav-link">Teto MEI</a></li>
           <li><a href="#planos" class="nav-link">Planos</a></li>
           <li><a href="#lptitech" class="nav-link">LPTI Tech</a></li>
         </ul>
@@ -168,38 +144,145 @@
     </div>
   </header>
 
-  <!-- ================= ATO 1: HERO & EXPLODED VIEW CINEMÁTICA ================= -->
-  <section class="hero-scrolly-section" id="hero">
-    <div class="hero-glow-back"></div>
+  <!-- ================= ATO 1: HERO CINEMATOGRÁFICO FULL-BLEED (CANVAS SCROLLYTELLING) ================= -->
+  <section class="hero-cinema-track" id="hero">
+    <div class="hero-cinema-sticky">
+      <!-- Canvas 100vw x 100vh Full-Bleed dos 96 frames WebP -->
+      <canvas id="hero-cinema-canvas" class="hero-cinema-canvas" width="1280" height="720"></canvas>
 
-    <div class="container hero-header-box">
-      <div class="section-badge badge-white">✦ ERP INTELIGENTE PARA PEQUENOS NEGÓCIOS</div>
-      <h1 class="hero-headline">
-        O ERP definitivo para quem <span class="text-gradient">não tem tempo a perder.</span>
-      </h1>
-      <p class="hero-lead">
-        PDV ultrarrápido, controle de delivery, estoque em tempo real e monitoramento fiscal do seu MEI. Criado sob medida para restaurantes, marmitarias, pequenos comércios e prestadores de serviço que querem lucrar com tranquilidade.
-      </p>
+      <!-- Overlay Escuro e Vinheta Suave para Contraste Impecável de Leitura -->
+      <div class="hero-cinema-overlay" aria-hidden="true"></div>
+      <div class="hero-cinema-vignette" aria-hidden="true"></div>
 
-      <div class="hero-cta-row">
-        <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20gratuita%20do%20Gestor%20MEI%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.82 14.16c-.24.67-1.39 1.29-1.93 1.37-.5.08-1.13.11-3.28-.79-2.58-1.08-4.22-3.73-4.35-3.9-.13-.18-1.04-1.38-1.04-2.64 0-1.25.66-1.87.89-2.12.24-.25.53-.31.71-.31.18 0 .35 0 .51.01.16.01.38-.06.6.46.22.53.76 1.86.83 2 .07.14.12.31.02.5-.1.18-.15.3-.29.47-.15.17-.31.37-.44.5-.15.14-.3.3-.13.6.17.29.77 1.26 1.64 2.04 1.13 1 2.07 1.32 2.37 1.46.29.15.47.13.65-.07.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.16.29.11 1.83.86 2.14 1.02.31.15.52.23.6.36.08.13.08.76-.16 1.43z"/></svg>
-          <span>Experimentar Demonstração Gratuita</span>
-        </a>
-        <a href="#exploded-view-track" class="btn btn-outline-white btn-lg">
-          <span>Ver o Sistema em Ação &darr;</span>
-        </a>
+      <!-- Barra de Progresso Superior Discreta -->
+      <div class="hero-cinema-progress">
+        <div class="hero-cinema-progress-bar" id="cinema-progress-bar"></div>
       </div>
 
-      <div class="hero-pills-row">
-        <span class="hero-pill-badge"><span class="dot"></span> Venda em <span data-counter="10" data-format="seconds">&lt; 10 segundos</span></span>
-        <span class="hero-pill-badge"><span class="dot"></span> Delivery sem comissão abusiva</span>
-        <span class="hero-pill-badge"><span class="dot"></span> <span data-counter="100" data-format="percent">100%</span> em dia com o DAS</span>
+
+      <!-- Palco Central dos 4 Blocos de Texto Monumentais Sincronizados -->
+      <div class="hero-cinema-content-stage">
+        
+        <!-- Bloco 1: Abertura Monumental (0% - 25%) -->
+        <div class="cinema-text-block active" id="cinema-block-0">
+          <div class="section-badge badge-white">✦ ERP INTELIGENTE PARA PEQUENOS NEGÓCIOS</div>
+          <h1 class="cinema-monumental-title">
+            O ERP definitivo para quem <span class="text-gradient-cyan">não tem tempo a perder.</span>
+          </h1>
+          <p class="cinema-monumental-lead">
+            PDV ultrarrápido, delivery sem comissão abusiva, estoque automatizado e conformidade fiscal completa. Criado para você lucrar com tranquilidade.
+          </p>
+          <div class="hero-cta-row">
+            <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20gratuita%20do%20Gestor%20MEI%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.82 14.16c-.24.67-1.39 1.29-1.93 1.37-.5.08-1.13.11-3.28-.79-2.58-1.08-4.22-3.73-4.35-3.9-.13-.18-1.04-1.38-1.04-2.64 0-1.25.66-1.87.89-2.12.24-.25.53-.31.71-.31.18 0 .35 0 .51.01.16.01.38-.06.6.46.22.53.76 1.86.83 2 .07.14.12.31.02.5-.1.18-.15.3-.29.47-.15.17-.31.37-.44.5-.15.14-.3.3-.13.6.17.29.77 1.26 1.64 2.04 1.13 1 2.07 1.32 2.37 1.46.29.15.47.13.65-.07.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.16.29.11 1.83.86 2.14 1.02.31.15.52.23.6.36.08.13.08.76-.16 1.43z"/></svg>
+              <span>Experimentar Demonstração Gratuita</span>
+            </a>
+            <a href="#telas-hd" class="btn btn-outline-white btn-lg">
+              <span>Ver Telas em Alta Definição &darr;</span>
+            </a>
+          </div>
+          <div class="hero-pills-row">
+            <span class="hero-pill-badge"><span class="dot"></span> Venda em <span data-counter="10" data-format="seconds">&lt; 10 segundos</span></span>
+            <span class="hero-pill-badge"><span class="dot"></span> Delivery sem comissão</span>
+            <span class="hero-pill-badge"><span class="dot"></span> <span data-counter="100" data-format="percent">100%</span> em dia com o DAS</span>
+          </div>
+          <div class="cinema-scroll-hint">
+            <span class="scroll-mouse-icon"><span class="scroll-wheel"></span></span>
+            <span class="scroll-text">Role para avançar a experiência</span>
+          </div>
+        </div>
+
+        <!-- Bloco 2: PDV em menos de 10 segundos (25% - 50%) -->
+        <div class="cinema-text-block" id="cinema-block-1">
+          <div class="section-badge badge-blue">✦ PDV ÁGIL NO BALCÃO</div>
+          <h2 class="cinema-monumental-title">
+            Vendas no balcão concluídas em <span class="text-gradient-cyan">menos de 10 segundos.</span>
+          </h2>
+          <p class="cinema-monumental-lead">
+            Interface otimizada com leitor de código de barras, atalhos rápidos no teclado, PIX instantâneo e fechamento cego de caixa com PIN de autorização.
+          </p>
+          <div class="cinema-chips-row">
+            <div class="cinema-stat-chip">
+              <span class="chip-number">&lt; 10s</span>
+              <span class="chip-label">Tempo Médio no PDV</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">Zero</span>
+              <span class="chip-label">Travamentos no Caixa</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">100%</span>
+              <span class="chip-label">Fechamento Cego Seguro</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloco 3: Estoque e NF-e XML automatizados (50% - 75%) -->
+        <div class="cinema-text-block" id="cinema-block-2">
+          <div class="section-badge badge-amber">✦ ENTRADAS &amp; ESTOQUE AUTOMATIZADOS</div>
+          <h2 class="cinema-monumental-title">
+            Estoque e NF-e XML <span class="text-gradient-amber">100% automatizados.</span>
+          </h2>
+          <p class="cinema-monumental-lead">
+            Dê adeus à digitação manual: importe o XML da nota fiscal do fornecedor com 1 clique e atualize produtos, custos e saldos instantaneamente.
+          </p>
+          <div class="cinema-chips-row">
+            <div class="cinema-stat-chip">
+              <span class="chip-number">1 Clique</span>
+              <span class="chip-label">Importação XML NF-e</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">Tempo Real</span>
+              <span class="chip-label">Alerta de Reposição</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">Automático</span>
+              <span class="chip-label">Cálculo de Margem Real</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloco 4: Blindagem Fiscal e Teto MEI de R$ 81.000 (75% - 100%) -->
+        <div class="cinema-text-block" id="cinema-block-3">
+          <div class="section-badge badge-green">✦ GESTÃO FISCAL &amp; SEGURANÇA</div>
+          <h2 class="cinema-monumental-title">
+            Blindagem Fiscal e <span class="text-gradient-green">Teto MEI de R$ 81.000.</span>
+          </h2>
+          <p class="cinema-monumental-lead">
+            Régua visual do faturamento anual com avisos preventivos de desenquadramento, lembrete automático do DAS dia 20 e relatório consolidado para a declaração DASN-SIMEI.
+          </p>
+          <div class="cinema-chips-row">
+            <div class="cinema-stat-chip">
+              <span class="chip-number">R$ 81.000</span>
+              <span class="chip-label">Teto Anual Monitorado</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">Dia 20</span>
+              <span class="chip-label">Alerta do DAS no WhatsApp</span>
+            </div>
+            <div class="cinema-stat-chip">
+              <span class="chip-number">100%</span>
+              <span class="chip-label">Pronto p/ DASN-SIMEI</span>
+            </div>
+          </div>
+          <div class="cinema-block-actions">
+            <a href="#telas-hd" class="btn btn-outline-white btn-lg">
+              <span>Examinar Telas em Alta Definição &darr;</span>
+            </a>
+            <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20gratuita%20do%20Gestor%20MEI%20para%20o%20meu%20neg%C3%B3cio." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
+              <span>Agendar Demonstração Gratuita</span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
+  </section>
 
-    <!-- Track da Apresentação Visual Cinematográfica Scrollytelling 3D -->
-    <div class="exploded-track scrolly-3d-track" id="exploded-view-track">
+  <!-- ================= PALCO SCROLLYTELLING 3D: AS 4 TELAS REAIS EM ALTA DEFINIÇÃO ================= -->
+  <section class="scrolly-showcase-section" id="telas-hd">
+    <div id="exploded-view-track"></div>
+    <div class="exploded-track scrolly-3d-track">
       <div class="exploded-sticky-stage scrolly-sticky-stage">
         
         <!-- Barra Superior de Controle e Progresso do Scrollytelling -->
@@ -240,6 +323,10 @@
           
           <!-- Viewport 3D das Telas Reais em Glassmorphism Escuro -->
           <div class="exploded-viewport scrolly-viewport" id="scrolly-viewport">
+            
+            <!-- Brilho Ambiental Difuso (Ambient Backlight Glow) Dinâmico -->
+            <div class="scrolly-backlight-glow glow-step-0" id="scrolly-backlight-glow"></div>
+
             <div class="scrolly-3d-scene" id="scrolly-scene">
               
               <!-- Tela 1: PDV Balcão em < 10s -->
@@ -497,332 +584,7 @@
     </div>
   </section>
 
-  <!-- ================= ATO 3: MOTOR DO CAIXA (PDV & BALCÃO EM < 10S) ================= -->
-  <section class="section feature-showcase-section" id="pdv">
-    <div class="container">
-      <div class="feature-grid-layout" data-reveal>
-        <div class="feature-info-side">
-          <span class="pill">VELOCIDADE INCOMPARÁVEL</span>
-          <h2 class="feature-heading">PDV Balcão: Venda concluída em menos de 10 segundos.</h2>
-          <p class="feature-body-text">
-            Projetado para telas sensíveis ao toque ou teclado numérico. O operador digita o código do item ou utiliza leitor de código de barras, escolhe o pagamento e emite o comprovante sem travar o atendimento.
-          </p>
-
-          <div class="feature-highlights-list">
-            <div class="highlight-row">
-              <span class="check">&check;</span>
-              <span><strong>Fechamento Cego de Caixa:</strong> O funcionário digita o total contado; o sistema aponta divergências sem exibir o saldo antes da conferência.</span>
-            </div>
-            <div class="highlight-row">
-              <span class="check">&check;</span>
-              <span><strong>PIN Gerencial para Descontos:</strong> Proteja sua margem exigindo senha do dono para abatimentos especiais.</span>
-            </div>
-            <div class="highlight-row">
-              <span class="check">&check;</span>
-              <span><strong>Pagamento Múltiplo:</strong> Receba parte em dinheiro, parte em Pix e o restante no cartão na mesma venda.</span>
-            </div>
-          </div>
-
-          <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Quero%20conhecer%20o%20PDV%20do%20Gestor%20MEI." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-            <span>Ver Demonstração do PDV</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-
-        <!-- Simulador Visual do PDV -->
-        <div class="pdv-simulator-window">
-          <div class="pdv-window-header">
-            <span class="pdv-window-title">PDV GESTOR MEI &bull; CAIXA 01 [ABERTO]</span>
-            <span style="color: #81C784; font-size: 11px; font-weight: 700;">&bull; ONLINE</span>
-          </div>
-
-          <div class="pdv-body">
-            <div class="pdv-search-bar">
-              <span>🔍</span>
-              <span>#001 - Marmita Especial Picanha (Grande)</span>
-            </div>
-
-            <table class="pdv-cart-table">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th style="text-align: center;">Qtd</th>
-                  <th style="text-align: right;">Unit.</th>
-                  <th style="text-align: right;">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Marmita Especial Picanha</td>
-                  <td style="text-align: center;">2x</td>
-                  <td style="text-align: right;">R$ 28,00</td>
-                  <td style="text-align: right; font-weight: 700;">R$ 56,00</td>
-                </tr>
-                <tr>
-                  <td>Refrigerante Lata 350ml</td>
-                  <td style="text-align: center;">2x</td>
-                  <td style="text-align: right;">R$ 6,00</td>
-                  <td style="text-align: right; font-weight: 700;">R$ 12,00</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="pdv-totals-box">
-              <div>
-                <span style="font-size: 12px; color: #90CAF9; display: block;">SUBTOTAL</span>
-                <span class="pdv-total-val" data-counter="68" data-format="currency">R$ 68,00</span>
-              </div>
-              <div style="text-align: right;">
-                <span style="font-size: 11px; color: #81C784; display: block;">FORMA DE PAGAMENTO</span>
-                <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: #FFFFFF;">PIX QR CODE</span>
-              </div>
-            </div>
-
-            <div class="pdv-actions-bar">
-              <div class="pdv-btn-finish">
-                <span>FINALIZAR VENDA (F4) &check;</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ATO 4: ESPECIAL MARMITARIAS & RESTAURANTES (DELIVERY) ================= -->
-  <section class="section delivery-section" id="delivery">
-    <div class="container" data-reveal>
-      <div class="section-header text-center">
-        <div class="section-badge badge-green">DELIVERY SOB CONTROLE</div>
-        <h2 class="section-title">Gerencie seus pedidos, motoboys e rotas sem intermediários.</h2>
-        <p class="section-desc">
-          Economize milhares de reais em taxas de marketplaces. Tenha um painel Kanban em tempo real para organizar os pedidos e fechar as diárias de entregadores sem estresse.
-        </p>
-      </div>
-
-      <!-- Kanban Board Visual -->
-      <div class="kanban-board">
-        <!-- Coluna 1 -->
-        <div class="kanban-col">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">1. Recebidos</span>
-            <span class="kanban-badge badge-yellow"><span data-counter="3">3</span> pedidos</span>
-          </div>
-          <div class="kanban-cards-stack">
-            <div class="kanban-item-card">
-              <div class="kanban-order-id">#1042 &bull; 11:42</div>
-              <div class="kanban-order-desc">2x Marmita M (Feijão Tropeiro)</div>
-              <div class="kanban-order-footer">
-                <span>R$ 44,00</span>
-                <span style="color: #F57F17;">Aguardando aceite</span>
-              </div>
-            </div>
-            <div class="kanban-item-card">
-              <div class="kanban-order-id">#1043 &bull; 11:45</div>
-              <div class="kanban-order-desc">1x Marmita Fit + Suco Laranja</div>
-              <div class="kanban-order-footer">
-                <span>R$ 32,00</span>
-                <span style="color: #F57F17;">Aguardando aceite</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 2 -->
-        <div class="kanban-col">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">2. Na Cozinha</span>
-            <span class="kanban-badge badge-blue"><span data-counter="2">2</span> pedidos</span>
-          </div>
-          <div class="kanban-cards-stack">
-            <div class="kanban-item-card">
-              <div class="kanban-order-id">#1040 &bull; 11:35</div>
-              <div class="kanban-order-desc">3x Executivo Frango Grelhado</div>
-              <div class="kanban-order-footer">
-                <span>R$ 69,00</span>
-                <span style="color: #0288D1;">Na chapa</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 3 -->
-        <div class="kanban-col">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">3. Na Rota</span>
-            <span class="kanban-badge badge-purple"><span data-counter="4">4</span> pedidos</span>
-          </div>
-          <div class="kanban-cards-stack">
-            <div class="kanban-item-card">
-              <div class="kanban-order-id">#1038 &bull; Motoboy: Marcos</div>
-              <div class="kanban-order-desc">Bairro Jardim da Cidade (Betim)</div>
-              <div class="kanban-order-footer">
-                <span>Taxa: R$ 8,00</span>
-                <span style="color: #7B1FA2;">Saiu há 8 min</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna 4 -->
-        <div class="kanban-col">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">4. Entregues</span>
-            <span class="kanban-badge badge-green"><span data-counter="18">18</span> hoje</span>
-          </div>
-          <div class="kanban-cards-stack">
-            <div class="kanban-item-card" style="opacity: 0.85;">
-              <div class="kanban-order-id" style="color: #2E7D32;">#1035 &bull; Concluído</div>
-              <div class="kanban-order-desc">Cliente Roberto (Centro)</div>
-              <div class="kanban-order-footer">
-                <span>R$ 52,00</span>
-                <span style="color: #2E7D32;">Pago Pix &check;</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ATO 5: ESTOQUE, COMPRAS & CUSTOS REAIS ================= -->
-  <section class="section" id="estoque">
-    <div class="container" data-reveal>
-      <div class="section-header text-center">
-        <div class="section-badge">CONTROLE DE CUSTOS &bull; GESTÃO INTELIGENTE</div>
-        <h2 class="section-title">Saiba exatamente quanto custa cada item e quanto sobra.</h2>
-        <p class="section-desc">
-          Entrada de compras manuais com comprovante em anexo ou importação rápida de NF-e via XML. Custo médio ponderado recalculado na hora.
-        </p>
-      </div>
-
-      <div class="inventory-cards-grid">
-        <div class="inventory-stat-card">
-          <div class="inventory-icon-box bg-blue-soft">📥</div>
-          <h3 class="stat-card-title">Compra Manual &amp; NF-e XML</h3>
-          <p class="stat-card-desc">
-            Lance pedidos de fornecedores em segundos, anexe a foto do cupom fiscal ou recibo e cadastre novos itens na mesma tela sem perder tempo.
-          </p>
-        </div>
-
-        <div class="inventory-stat-card">
-          <div class="inventory-icon-box bg-amber-soft">⚠️</div>
-          <h3 class="stat-card-title">Alerta de Estoque Mínimo</h3>
-          <p class="stat-card-desc">
-            Receba notificações visuais no topo do dashboard quando carnes, queijos, embalagens ou bebidas atingirem a reserva crítica de segurança.
-          </p>
-        </div>
-
-        <div class="inventory-stat-card">
-          <div class="inventory-icon-box bg-green-soft">💰</div>
-          <h3 class="stat-card-title">Indicador "Quanto Sobrou"</h3>
-          <p class="stat-card-desc">
-            Margem real líquida do negócio. Descubra o lucro exato descontando custo das mercadorias vendidas (CMV), taxas e despesas fixas.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ATO 6: GUARDIÃO FISCAL (TETO MEI & DAS) ================= -->
-  <section class="section" id="fiscal" style="background-color: var(--navy-darkest);">
-    <div class="container" data-reveal>
-      <div class="fiscal-container-card">
-        <div class="section-badge badge-white">CONFORMIDADE RECEITA FEDERAL</div>
-        <h2 class="section-title title-white">Régua do Teto MEI e Alertas do DAS em 1 Clique.</h2>
-        <p class="section-desc desc-white" style="margin-left: 0;">
-          Mantenha seu CNPJ 100% blindado contra multas e desenquadramentos acidentais. Acompanhe o limite anual de R$ 81.000,00 e pague o DAS sem juros.
-        </p>
-
-        <!-- Régua de Faturamento Anual MEI -->
-        <div class="fiscal-meter-box">
-          <div class="meter-header">
-            <span class="meter-title">Faturamento Acumulado no Ano (2026)</span>
-            <span class="meter-value" data-counter="54320" data-format="currency">R$ 54.320,00</span>
-          </div>
-
-          <div class="meter-bar-track">
-            <div class="meter-bar-fill"></div>
-          </div>
-
-          <div class="meter-footer-note">
-            <span><strong data-counter="67" data-format="percent">67%</strong> do Limite Anual Utilizado</span>
-            <span>Teto MEI Oficial: <strong data-counter="81000" data-format="currency">R$ 81.000,00</strong> &bull; Saldo Restante: <strong data-counter="26680" data-format="currency">R$ 26.680,00</strong></span>
-          </div>
-        </div>
-
-        <!-- Box de Ação do DAS -->
-        <div class="das-action-callout">
-          <div class="das-callout-text">
-            <strong>Guia DAS deste Mês: Vencimento Dia 20 &bull; <span data-counter="82.05" data-format="currency">R$ 82,05</span> (exemplo: comércio &bull; valor 2026)</strong>
-            <span>Status: Pendente &bull; Evite multas e garanta sua aposentadoria e auxílios do INSS.</span>
-          </div>
-          <a href="https://wa.me/5531988004560?text=Ol%C3%A1!%20Gostaria%20de%20receber%20alertas%20e%20apoio%20para%20manter%20meu%20DAS%20MEI%20em%20dia." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
-            <span>Receber Alertas do DAS no WhatsApp</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ATO 7: A HISTÓRIA REAL DO CRIADOR ================= -->
-  <section class="section" id="lptitech">
-    <div class="container" data-reveal>
-      <div class="authority-grid">
-        <div>
-          <div class="section-badge badge-green">A HISTÓRIA DO CRIADOR</div>
-          <h2 class="section-title">Criado por quem acompanha a rotina real de MEIs na prática.</h2>
-          <p class="feature-body-text">
-            O Gestor MEI não nasceu em uma sala fechada longe do balcão. Ele foi construído dia após dia por <strong>Leônidas Paulino</strong> (profissional de Tecnologia da Informação e Segurança da Informação), acompanhando de perto a rotina real de microempreendedores individuais, restaurantes, marmitarias e pequenos comércios.
-          </p>
-          <p class="feature-body-text">
-            Cada recurso do sistema — como o <strong>fechamento cego de caixa</strong>, o <strong>PIN para autorização de descontos</strong> e o <strong>alerta visual do teto MEI</strong> — existe para resolver problemas reais que acontecem no dia a dia de quem empreende e precisa proteger sua margem.
-          </p>
-          <p class="feature-body-text">
-            Aqui você não fala com robôs ou atendentes em filas intermináveis: o diferencial da <strong>LPTI Tech</strong> é o <strong>atendimento direto com o desenvolvedor</strong>, com suporte presencial em Betim e região, e atendimento remoto ágil para todo o Brasil.
-          </p>
-          <div style="margin-top: 25px;">
-            <a href="https://wa.me/5531988004560?text=Ol%C3%A1%2C%20Le%C3%B4nidas!%20Gostaria%20de%20conversar%20diretamente%20com%20voc%C3%AA%20sobre%20o%20Gestor%20MEI." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-              <span>Falar Direto com o Criador</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="authority-card-hub">
-          <h3 class="hub-title">Apoio Tecnológico LPTI Tech</h3>
-          <p class="hub-desc">Segurança, proximidade e engenharia sólida para o seu negócio.</p>
-
-          <div class="hub-pillars">
-            <div class="pillar-item">
-              <span class="pillar-icon">🧑‍💻</span>
-              <div>
-                <strong>Atendimento Direto com Leônidas Paulino</strong>
-                <span>Sem intermediários ou mensagens automáticas. Suporte técnico humanizado de quem construiu e mantém cada módulo.</span>
-              </div>
-            </div>
-
-            <div class="pillar-item">
-              <span class="pillar-icon">☁️</span>
-              <div>
-                <strong>Nuvem &amp; Segurança da Informação</strong>
-                <span>Servidores dedicados com meta de disponibilidade de 99,9%, criptografia de ponta a ponta e backups diários automáticos.</span>
-              </div>
-            </div>
-
-            <div class="pillar-item">
-              <span class="pillar-icon">💼</span>
-              <div>
-                <strong>Estruturação e Suporte de TI para Pequenos Negócios</strong>
-                <span>Configuração de e-mails profissionais com domínio próprio, padronização de equipamentos e segurança digital para o seu negócio operar sem dores de cabeça.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= NOVA SEÇÃO COMERCIAL: PLANOS & PREÇOS ================= -->
+  <!-- ================= PLANOS & PREÇOS ================= -->
   <section class="section pricing-section" id="planos">
     <div class="container" data-reveal>
       <div class="section-header text-center">
@@ -919,7 +681,64 @@
     </div>
   </section>
 
-  <!-- ================= ATO 8: FECHAMENTO DE ALTA CONVERSÃO & CONTATO ================= -->
+  <!-- ================= A HISTÓRIA REAL DO CRIADOR & APOIO LPTI TECH ================= -->
+  <section class="section" id="lptitech">
+    <div class="container" data-reveal>
+      <div class="authority-grid">
+        <div>
+          <div class="section-badge badge-green">A HISTÓRIA DO CRIADOR</div>
+          <h2 class="section-title">Criado por quem acompanha a rotina real de MEIs na prática.</h2>
+          <p class="feature-body-text">
+            O Gestor MEI não nasceu em uma sala fechada longe do balcão. Ele foi construído dia após dia por <strong>Leônidas Paulino</strong> (profissional de Tecnologia da Informação e Segurança da Informação), acompanhando de perto a rotina real de microempreendedores individuais, restaurantes, marmitarias e pequenos comércios.
+          </p>
+          <p class="feature-body-text">
+            Cada recurso do sistema — como o <strong>fechamento cego de caixa</strong>, o <strong>PIN para autorização de descontos</strong> e o <strong>alerta visual do teto MEI</strong> — existe para resolver problemas reais que acontecem no dia a dia de quem empreende e precisa proteger sua margem.
+          </p>
+          <p class="feature-body-text">
+            Aqui você não fala com robôs ou atendentes em filas intermináveis: o diferencial da <strong>LPTI Tech</strong> é o <strong>atendimento direto com o desenvolvedor</strong>, com suporte presencial em Betim e região, e atendimento remoto ágil para todo o Brasil.
+          </p>
+          <div style="margin-top: 25px;">
+            <a href="https://wa.me/5531988004560?text=Ol%C3%A1%2C%20Le%C3%B4nidas!%20Gostaria%20de%20conversar%20diretamente%20com%20voc%C3%AA%20sobre%20o%20Gestor%20MEI." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+              <span>Falar Direto com o Criador</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="authority-card-hub">
+          <h3 class="hub-title">Apoio Tecnológico LPTI Tech</h3>
+          <p class="hub-desc">Segurança, proximidade e engenharia sólida para o seu negócio.</p>
+
+          <div class="hub-pillars">
+            <div class="pillar-item">
+              <span class="pillar-icon">🧑‍💻</span>
+              <div>
+                <strong>Atendimento Direto com Leônidas Paulino</strong>
+                <span>Sem intermediários ou mensagens automáticas. Suporte técnico humanizado de quem construiu e mantém cada módulo.</span>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <span class="pillar-icon">☁️</span>
+              <div>
+                <strong>Nuvem &amp; Segurança da Informação</strong>
+                <span>Servidores dedicados com meta de disponibilidade de 99,9%, criptografia de ponta a ponta e backups diários automáticos.</span>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <span class="pillar-icon">💼</span>
+              <div>
+                <strong>Estruturação e Suporte de TI para Pequenos Negócios</strong>
+                <span>Configuração de e-mails profissionais com domínio próprio, padronização de equipamentos e segurança digital para o seu negócio operar sem dores de cabeça.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FECHAMENTO DE ALTA CONVERSÃO & CONTATO ================= -->
   <section class="section conversion-section" id="contato">
     <div class="container" data-reveal>
       <div class="conversion-card-main">
@@ -1020,12 +839,13 @@
         </div>
 
         <div class="footer-nav-col">
-          <h4 class="footer-nav-title">Módulos</h4>
+          <h4 class="footer-nav-title">Navegação</h4>
           <ul class="footer-nav-list">
-            <li><a href="#pdv">PDV Balcão</a></li>
-            <li><a href="#delivery">Controle de Delivery</a></li>
-            <li><a href="#estoque">Compras &amp; Estoque</a></li>
-            <li><a href="#fiscal">DAS &amp; Teto MEI</a></li>
+            <li><a href="#hero">O Sistema</a></li>
+            <li><a href="#telas-hd">Telas Reais (HD)</a></li>
+            <li><a href="#problema">Antes x Depois</a></li>
+            <li><a href="#planos">Planos &amp; Preços</a></li>
+            <li><a href="#lptitech">Sobre a LPTI Tech</a></li>
           </ul>
         </div>
 
